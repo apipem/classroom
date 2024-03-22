@@ -76,13 +76,14 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            if(Persona::isFuncionario($this->getUser()->getId())){
+            if(Usuario::isFuncionario($this->getUser()->getId())){
+
+                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+
+            }else if(Usuario::isEstudiante($this->getUser()->getId())){
                 Yii::$app->user->setReturnUrl('site/index');
                 return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
-            }else if(Persona::isEstudiante($this->getUser()->getId())){
-                Yii::$app->user->setReturnUrl('site/index');
-                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
-            } else if(Persona::isAdministrador()){
+            } else if(Usuario::isAdministrador()){
                 Yii::$app->user->setReturnUrl('site/index');
                 return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
             }
@@ -99,7 +100,7 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = Persona::findByUsername($this->username);
+            $this->_user = Usuario::findByUsername($this->username);
         }
 
         return $this->_user;

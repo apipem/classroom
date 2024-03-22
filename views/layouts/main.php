@@ -29,10 +29,10 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-    <?php // echo $this->render("_header") ?>
+    <?php echo $this->render("_header") ?>
 
-    <?php //echo $this->render("_sidebar-left"); ?>
-    <?php // $this->beginBody() ?>
+    <?php echo $this->render("_sidebar-left"); ?>
+    <?php $this->beginBody() ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->

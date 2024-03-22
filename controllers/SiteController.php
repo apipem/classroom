@@ -30,12 +30,12 @@ class SiteController extends Controller
                     [
                         'actions' => ['home','index'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['Administrador'],
                     ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['@'],
                     ],
                     [
                         'actions' => ['login'],

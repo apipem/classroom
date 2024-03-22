@@ -66,24 +66,8 @@ class RbacController extends Controller
         //Roles generales de la app
         $roles = [
             'administrador' => $auth->createRole('Administrador'),
-            'coordinador' => $auth->createRole('Coordinador'),
-            'directivo' => $auth->createRole('Directivo'),
-            'gestorComisiones' => $auth->createRole('Gestor Comisiones'),
-            'instructor' => $auth->createRole('Instructor'),
-            'supervisor' => $auth->createRole('Supervisor'),
-            'complementaria' => $auth->createRole('Complementaria'),
-            'supervisorVirtual' => $auth->createRole('Supervisor Virtual'),
-            'liderBienestar' => $auth->createRole('Lider Bienestar'),
-            'auxiliarSubdireccion' => $auth->createRole('Auxiliar Subdireccion'),
-            'gestionAmbiental' => $auth->createRole('Gestion Ambiental'),
-            'gestorSeguridad' => $auth->createRole('Gestor Seguridad'),
-            'auxiliarPVD' => $auth->createRole('Auxiliar PVD'),
-            'aprendiz' => $auth->createRole('Aprendiz'),
-            'liderContratoAprendizaje' => $auth->createRole('Lider Contrato Aprendizaje'),
-            'liderOtrasAlternativas' => $auth->createRole('Lider Otras Alternativas'),
-            'directorRegional' => $auth->createRole('Director Regional'),
-            'recepcion' => $auth->createRole('Recepcion'),
-            //'funcionariosArticulacion' => $auth->createRole('Funcionarios Articulacion'),
+            'profesor' => $auth->createRole('profesor'),
+            'estudiante' => $auth->createRole('estudiante'),
         ];
         foreach ($roles as $role){
             $auth->add($role);
@@ -97,7 +81,7 @@ class RbacController extends Controller
     public function actionAdminAssignment(){
         $auth = Yii::$app->authManager;
         $admin = $auth->createRole('Administrador');
-        $auth->assign($admin, 1);
+        $auth->assign($admin, 2);
     }
 
     /**
@@ -112,74 +96,14 @@ class RbacController extends Controller
             $coordinadorAcademico = $auth->createRole($role);
             $auth->assign($coordinadorAcademico, $id);
         }
-        if($role === 'Directivo'){
-            $directivo = $auth->createRole($role);
-            $auth->assign($directivo, $id);
+        if($role === 'profesor'){
+            $profesor = $auth->createRole($role);
+            $auth->assign($profesor, $id);
         }
-        if($role === 'Gestor Comisiones'){
-            $gestorComisiones = $auth->createRole($role);
-            $auth->assign($gestorComisiones, $id);
+        if($role === 'estudiante'){
+            $estudiante = $auth->createRole($role);
+            $auth->assign($estudiante, $id);
         }
-        if($role === 'Instructor'){
-            $instructor = $auth->createRole($role);
-            $auth->assign($instructor, $id);
-        }
-        if($role === 'Supervisor'){
-            $supervisor = $auth->createRole($role);
-            $auth->assign($supervisor, $id);
-        }
-        if($role === 'Complementaria'){
-            $complementaria = $auth->createRole($role);
-            $auth->assign($complementaria, $id);
-        }
-        if($role === 'Supervisor Virtual'){
-            $supervisorVirtual = $auth->createRole($role);
-            $auth->assign($supervisorVirtual, $id);
-        }
-        if($role === 'Lider Virtual'){
-            $liderVirtual = $auth->createRole($role);
-            $auth->assign($liderVirtual, $id);
-        }
-        if($role === 'Auxiliar Subdireccion'){
-            $auxiliarSubdireccion = $auth->createRole($role);
-            $auth->assign($auxiliarSubdireccion, $id);
-        }
-        if($role === 'Gestion Ambiental'){
-            $gestionAmbiental = $auth->createRole($role);
-            $auth->assign($gestionAmbiental, $id);
-        }
-        if($role === 'Gestor Seguridad'){
-            $gestorSeguridad = $auth->createRole($role);
-            $auth->assign($gestorSeguridad, $id);
-        }
-        if($role === 'Auxiliar PVD'){
-            $auxiliarPVD = $auth->createRole($role);
-            $auth->assign($auxiliarPVD, $id);
-        }
-        if($role === 'Aprendiz'){
-            $aprendiz = $auth->createRole($role);
-            $auth->assign($aprendiz, $id);
-        }
-        if($role === 'Lider Contrato Aprendizaje'){
-            $liderContrato = $auth->createRole($role);
-            $auth->assign($liderContrato, $id);
-        }
-        if($role === 'Lider Otras Alternativas'){
-            $liderOtrasAlternativas = $auth->createRole($role);
-            $auth->assign($liderOtrasAlternativas, $id);
-        }
-        if($role === 'Director Regional'){
-            $directorRegional = $auth->createRole($role);
-            $auth->assign($directorRegional, $id);
-        }
-        if($role === 'Recepcion'){
-            $recepcion = $auth->createRole($role);
-            $auth->assign($recepcion, $id);
-        }
-        /*if($role === 'Funcionarios Articulacion'){
-            $funcionariosArticulacion = $auth->createRole($role);
-            $auth->assign($funcionariosArticulacion, $id);
-        }*/
     }
 
 

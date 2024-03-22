@@ -3,7 +3,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <form action="/academy/web/logout" method="get">
+            <form action="/classroom/web/logout" method="get">
                 <button class="btn btn-danger" type="submit">Cerrar sesion</button>
             </form>
         </li>
