@@ -29,7 +29,7 @@ class Materia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idmateria', 'nombre'], 'required'],
+            [['nombre'], 'required'],
             [['idmateria'], 'integer'],
             [['nombre'], 'string', 'max' => 45],
             [['idmateria'], 'unique'],
