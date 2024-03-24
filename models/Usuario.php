@@ -84,7 +84,6 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     //////////////////////Metodos para determinar si la persona es un funcionario o un aprendiz///////////////////
     public static function isFuncionario($id){
 
-        echo "asd";
         if(self::findOne(['idUsuario' => $id])){
             return true;
         }
@@ -112,7 +111,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
             try {
                 $this->contrasena = Yii::$app->security->generatePasswordHash($this->contrasena);
             } catch (Exception $e) {
-
+                echo $e;
             }
         }
 

@@ -11,6 +11,7 @@ use app\models\Matricula;
 use app\models\Persona;
 use app\models\Sede;
 use app\models\TipoDocumento;
+use app\models\Usuario;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -63,54 +64,22 @@ class RecursoController extends Controller
 
     public function actionPersona()
     {
-        $p = new Persona();
-        $p->idPersona = "";
-        $p->nombre = $_GET["n1"];
-        $p->apellido = $_GET["a1"];
-        $p->documento = $_GET["documento"];
-        $p->celular = $_GET["ce"];
-        $p->correo = $_GET["co"];
-        $p->fechaNacimiento = $_GET["fn"];
-        $p->direccion = $_GET["direccion"];
-        $p->ciudad = $_GET["direccion"];
-        $p->foto = "no tiene";
-        $p->contrasena = $_GET["ce"];
-        $p->genero = $_GET["genero"];
-        $p->TipoDocumento = $_GET["td"];
-        $p->save();
+        $p = new Usuario();
+        $p->cc = $_GET["cc"];
+        $p->nombre = $_GET["name"];
+        $p->apellido = $_GET["last"];
+        $p->rol = $_GET["user"];
+        $p->correo = $_GET["email"];
+        $p->contrasena = $_GET["password"];
 
-        $pa = new Persona();
-        $pa->idPersona = "";
-        $pa->nombre = $_GET["n2"];
-        $pa->apellido = $_GET["a2"];
-        $pa->documento = $_GET["documento"].$_GET["documento"];
-        $pa->celular = $_GET["ce"];
-        $pa->correo = $_GET["co"];
-        $pa->fechaNacimiento = $_GET["fn"];
-        $pa->direccion = $_GET["direccion"];
-        $pa->ciudad = $_GET["direccion"];
-        $pa->foto = "no tiene";
-        $pa->contrasena = $pa->documento;
-        $pa->genero = $_GET["genero"];
-        $pa->TipoDocumento = $_GET["td"];
-        $pa->save();
 
-        $e = new Estudiante();
-        $e->idestudiante = "";
-        $e->estudiante = $p->idPersona;
-        $e->acudiente = $pa->idPersona;
-        $e->estado = 2;
-        $e->save();
+        print_r($p);
+        if ($p->save()) {
+            return "ok";
+        } else {
+            return "Error";
+        }
 
-        $matricula = new Matricula();
-        $matricula->estudiante = $e->idestudiante;
-        $matricula->curso = $_GET["cur"];
-        $matricula->complemento = "a";
-        $matricula->sede = $_GET["se"];
-        $matricula->jornada = $_GET["jor"];
-        $matricula->save();
-
-        return "ok";
     }
 
     public function actionEstudiantes(){

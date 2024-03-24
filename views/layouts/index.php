@@ -342,120 +342,53 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Registrar Estudiante</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="/academy/web/persona/psico" method="post">
-                    <h5>Datos del estudiante</h5>
-                    <hr>
+
                     <div class="row">
                         <div class="col-4 mb-3">
                             <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Documento:</label>
+                                <input type="number" name="cc" id="cc" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Nombres:</label>
-                                <input type="text" name="nombre" id="n1" class="form-control">
+                                <input type="text" class="form-control" id="name">
                             </div>
                         </div>
                         <div class="col-4 mb-3">
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Apellidos:</label>
-                                <input type="text" class="form-control" id="a1">
-                            </div>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Direccion:</label>
-                                <input type="text" class="form-control" id="direccion">
+                                <input type="text" class="form-control" id="last">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4 mb-3">
                             <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Genero:</label>
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="genero<<" id="genero">
+                                <label for="recipient-name" class="col-form-label">Usuario:</label>
+                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="user" id="user">
                                     <option selected>Selecciona</option>
+                                    <option value="estudiante">Estudiante</option>
+                                    <option value="profesor">Profesor</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-4 mb-3">
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Tipo de documento:</label>
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="td">
-                                    <option selected>Selecciona</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Documento:</label>
-                                <input type="text" class="form-control" id="documento">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Fecha de nacimiento:</label>
-                                <input type="date" class="form-control" id="fn">
-                            </div>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Sede:</label>
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="sede">
-                                    <option selected>Selecciona</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Curso:</label>
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="curso">
-                                    <option selected>Selecciona</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Jornada:</label>
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="jornada">
-                                    <option selected>Selecciona</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h5>Datos del Acudiente</h5>
-                    <hr>
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Nombres:</label>
-                            <input type="text" class="form-control" id="n2">
-                            </div>
-                        </div>
-                            <div class="col-6 mb-3">
-                                <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">apellidos:</label>
-                                <input type="text" class="form-control" id="a2">
-                                </div>
-                            </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Celular:</label>
-                                <input type="number" class="form-control" id="ce">
-                            </div>
-                        </div>
-                        <div class="col-6 mb-3">
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Correo:</label>
-                                <input type="text" class="form-control" id="co">
+                                <input type="email" class="form-control" id="email">
+                            </div>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Contrasena:</label>
+                                <input type="password" class="form-control" id="password">
                             </div>
                         </div>
                     </div>
