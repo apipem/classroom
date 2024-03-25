@@ -59,12 +59,12 @@ class ProyectoSearch extends Proyecto
         // grid filtering conditions
         $query->andFilterWhere([
             'idProyecto' => $this->idProyecto,
+            'fechaIncio' => $this->fechaIncio,
+            'fechaFin' => $this->fechaFin,
         ]);
 
         $query->andFilterWhere(['like', 'nombre', $this->nombre])
-            ->andFilterWhere(['like', 'descripcion', $this->descripcion])
-            ->andFilterWhere(['like', 'fechaIncio', $this->fechaIncio])
-            ->andFilterWhere(['like', 'fechaFin', $this->fechaFin]);
+            ->andFilterWhere(['like', 'descripcion', $this->descripcion]);
 
         return $dataProvider;
     }

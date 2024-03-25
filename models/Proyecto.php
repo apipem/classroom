@@ -32,11 +32,10 @@ class Proyecto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idProyecto', 'nombre', 'descripcion', 'fechaIncio', 'fechaFin'], 'required'],
-            [['idProyecto'], 'integer'],
+            [['nombre', 'descripcion', 'fechaIncio', 'fechaFin'], 'required'],
             [['descripcion'], 'string'],
-            [['nombre', 'fechaIncio', 'fechaFin'], 'string', 'max' => 45],
-            [['idProyecto'], 'unique'],
+            [['fechaIncio', 'fechaFin'], 'safe'],
+            [['nombre'], 'string', 'max' => 45],
         ];
     }
 

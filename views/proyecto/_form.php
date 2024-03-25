@@ -12,15 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idProyecto')->textInput() ?>
-
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'fechaIncio')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fechaIncio')->textInput() ?>
 
-    <?= $form->field($model, 'fechaFin')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fechaFin')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
