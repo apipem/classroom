@@ -71,7 +71,7 @@ class RecursoController extends Controller
         $p->rol = $_GET["user"];
         $p->correo = $_GET["email"];
         $p->contrasena = $_GET["password"];
-
+        $p->contrasena = $_GET["password"];
 
         print_r($p);
         if ($p->save()) {

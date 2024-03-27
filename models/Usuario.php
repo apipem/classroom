@@ -16,6 +16,7 @@ use yii\web\IdentityInterface;
  * @property string $correo
  * @property string $contrasena
  * @property string $rol
+ * @property int $estado
  *
  * @property Curso[] $cursos
  * @property Curso[] $cursos0
@@ -38,7 +39,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['cc', 'nombre', 'apellido', 'correo', 'contrasena', 'rol'], 'required'],
-            [['cc'], 'integer'],
+            [['cc', 'estado'], 'integer'],
             [['correo', 'contrasena', 'rol'], 'string'],
             [['nombre', 'apellido'], 'string', 'max' => 100],
         ];
@@ -57,6 +58,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
             'correo' => 'Correo',
             'contrasena' => 'Contrasena',
             'rol' => 'Rol',
+            'estado' => 'Estado',
         ];
     }
 
