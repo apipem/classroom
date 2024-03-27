@@ -52,28 +52,17 @@ class RecursoController extends Controller
         ];
     }
 
-    public function actionSedes(){return Json::encode(Sede::find()->all());}
-
-    public function actionCursos(){return Json::encode(Curso::find()->all());}
-
-    public function actionJornadas(){return Json::encode(Jornada::find()->all());}
-
-    public function actionGenero(){return Json::encode(Genero::find()->all());}
-
-    public function actionTd(){return Json::encode(TipoDocumento::find()->all());}
-
     public function actionPersona()
     {
         $p = new Usuario();
         $p->cc = $_GET["cc"];
         $p->nombre = $_GET["name"];
         $p->apellido = $_GET["last"];
-        $p->rol = $_GET["user"];
+        $p->rol = "profesor";
         $p->correo = $_GET["email"];
         $p->contrasena = $_GET["password"];
-        $p->contrasena = $_GET["password"];
+        $p->estado = 0;
 
-        print_r($p);
         if ($p->save()) {
             return "ok";
         } else {

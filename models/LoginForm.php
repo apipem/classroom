@@ -76,17 +76,19 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            if(Usuario::isFuncionario($this->getUser()->getId())){
+            if ($this->_user->estado == "1"){
+                if(Usuario::isFuncionario($this->getUser()->getId())){
+                    return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
 
-                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
-
-            }else if(Usuario::isEstudiante($this->getUser()->getId())){
-                Yii::$app->user->setReturnUrl('site/index');
-                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
-            } else if(Usuario::isAdministrador()){
-                Yii::$app->user->setReturnUrl('site/index');
-                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+                }else if(Usuario::isEstudiante($this->getUser()->getId())){
+                    Yii::$app->user->setReturnUrl('site/index');
+                    return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+                } else if(Usuario::isAdministrador()){
+                    Yii::$app->user->setReturnUrl('site/index');
+                    return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+                }
             }
+            echo "<h2>No autorizado</h2>";
         }
 
         return false;
