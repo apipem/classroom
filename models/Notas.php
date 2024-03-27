@@ -8,9 +8,9 @@ use Yii;
  * This is the model class for table "notas".
  *
  * @property int $idnotas
- * @property float|null $corte 1
- * @property float|null $corte 2
- * @property float|null $corte 3
+ * @property float|null $corte1
+ * @property float|null $corte2
+ * @property float|null $corte3
  * @property int $proyecto
  *
  * @property Curso[] $cursos
@@ -32,7 +32,7 @@ class Notas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['corte 1', 'corte 2', 'corte 3'], 'number'],
+            [['corte1', 'corte2', 'corte3'], 'number'],
             [['proyecto'], 'required'],
             [['proyecto'], 'integer'],
             [['proyecto'], 'exist', 'skipOnError' => true, 'targetClass' => Proyecto::class, 'targetAttribute' => ['proyecto' => 'idProyecto']],
@@ -45,10 +45,10 @@ class Notas extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idnotas' => 'Idnotas',
-            'corte 1' => 'Corte 1',
-            'corte 2' => 'Corte 2',
-            'corte 3' => 'Corte 3',
+            ///'idnotas' => 'Idnotas',
+            'corte1' => 'Corte1',
+            'corte2' => 'Corte2',
+            'corte3' => 'Corte3',
             'proyecto' => 'Proyecto',
         ];
     }

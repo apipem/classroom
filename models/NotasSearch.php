@@ -18,7 +18,7 @@ class NotasSearch extends Notas
     {
         return [
             [['idnotas', 'proyecto'], 'integer'],
-            [['corte 1', 'corte 2', 'corte 3'], 'number'],
+            [['corte1', 'corte2', 'corte3'], 'number'],
         ];
     }
 
@@ -59,9 +59,9 @@ class NotasSearch extends Notas
         // grid filtering conditions
         $query->andFilterWhere([
             'idnotas' => $this->idnotas,
-            'corte 1' => $this->corte 1,
-            'corte 2' => $this->corte 2,
-            'corte 3' => $this->corte 3,
+            'corte1' => $this->corte1,
+            'corte2' => $this->corte2,
+            'corte3' => $this->corte3,
             'proyecto' => $this->proyecto,
         ]);
 

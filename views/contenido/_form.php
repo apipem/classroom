@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idcontenido')->textInput() ?>
-
     <?= $form->field($model, 'contenido')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?>

@@ -28,8 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'idnotas',
+            //'idnotas',
             'corte 1',
             'corte 2',
             'corte 3',
