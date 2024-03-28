@@ -12,19 +12,13 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= Yii::$app->getUrlManager()->createUrl('img/user2-160x160.jpg') ?>" class="img-circle elevation-2" alt="User Image">
+                <img src="https://picsum.photos/200/200?random" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <?php $session = Yii::$app->session; if ($session->isActive) { ?>
                     <a href="#" class="d-block"><?= Yii::$app->user->identity->nombre." ".Yii::$app->user->identity->apellido  ?></a>
                 <?php }?>
-                <?php if (Yii::$app->user->identity->nombre == "andres"){?>
-                <a href="" style="color:white;">Admin</a>
-                <?php }elseif (Yii::$app->user->identity->nombre == "Camila"){?>
-                <a href="" style="color:white;">Psicorientador</a>
-                <?php }else{?>
-                <a href="" style="color:white;">Secretaria</a>
-                <?php }?>
+                <a href="" style="color:white;"><?= Yii::$app->user->identity->rol?></a>
 
             </div>
         </div>
@@ -45,7 +39,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
 
-            <?php if(Yii::$app->user->identity->nombre == "admin"):?>
+            <?php if(Yii::$app->user->identity->nombre == "admin"): ?>
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
@@ -110,11 +104,12 @@
                         </p>
                     </a>
                 </li>
+                <?php if (Yii::$app->user->identity->rol == "profesor"){?>
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Estudiantes
+                            Materias
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -127,7 +122,6 @@
                         </li>
                     </ul>
                 </li>
-                <?php if (Yii::$app->user->identity->nombre == "andres" || Yii::$app->user->identity->nombre == "Luis enrique"){?>
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
