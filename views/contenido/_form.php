@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'contenido')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'contenido')->fileInput(['name' => 'Contenido[url][]', 'multiple' => true]) ?>
 
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?>
 

@@ -29,17 +29,16 @@ class Contenido extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
-        return [
-            [['idcontenido', 'contenido', 'descripcion', 'materia', 'proyecto'], 'required'],
-            [['idcontenido', 'materia', 'proyecto'], 'integer'],
-            [['contenido', 'descripcion'], 'string'],
-            [['idcontenido'], 'unique'],
-            [['proyecto'], 'exist', 'skipOnError' => true, 'targetClass' => Proyecto::class, 'targetAttribute' => ['proyecto' => 'idProyecto']],
-            [['materia'], 'exist', 'skipOnError' => true, 'targetClass' => Materia::class, 'targetAttribute' => ['materia' => 'idmateria']],
-        ];
-    }
+        public function rules()
+        {
+            return [
+                [['descripcion', 'materia', 'proyecto'], 'required'],
+                [['contenido', 'descripcion'], 'string'],
+                [['materia', 'proyecto'], 'integer'],
+                [['proyecto'], 'exist', 'skipOnError' => true, 'targetClass' => Proyecto::class, 'targetAttribute' => ['proyecto' => 'idProyecto']],
+                [['materia'], 'exist', 'skipOnError' => true, 'targetClass' => Materia::class, 'targetAttribute' => ['materia' => 'idmateria']],
+            ];
+        }
 
     /**
      * {@inheritdoc}

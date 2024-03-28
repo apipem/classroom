@@ -7,6 +7,9 @@ use app\models\ContenidoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile; // Importar la clase UploadedFile
+use Yii;
+use yii\base\Model;
 
 /**
  * ContenidoController implements the CRUD actions for Contenido model.
@@ -70,8 +73,26 @@ class ContenidoController extends Controller
         $model = new Contenido();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idcontenido' => $model->idcontenido]);
+            if ($model->load($this->request->post())) {
+
+                $files = UploadedFile::getInstances($model,'url');
+                if ($files !== null) {
+                    foreach ($files as $file) {
+                        $filePath = 'recurso/' . $file->name ;
+                        if ($file->saveAs($filePath)) {
+                            $contenido = new Contenido();
+                            $contenido->contenido = $filePath;
+                            $contenido->descripcion = $model->descripcion;
+                            $contenido->materia = $model->materia;
+                            $contenido->proyecto = $model->proyecto;
+                            $contenido->save();
+                        }
+                    }
+                }
+
+              //  if ( $model->save()){
+               //     return $this->redirect(['view', 'idcontenido' => $model->idcontenido]);
+                //}
             }
         } else {
             $model->loadDefaultValues();
