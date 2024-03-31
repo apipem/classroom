@@ -138,7 +138,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/index') ?>" class="nav-link">
+                            <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/proyecto') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Mis proyectos</p>
                             </a>
@@ -147,6 +147,12 @@
                             <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/index') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/grupos') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>grupos</p>
                             </a>
                         </li>
                     </ul>
@@ -164,6 +170,30 @@
                             <a href="<?= Yii::$app->getUrlManager()->createUrl('notas/index') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Consultar</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <?php } else { ?>
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Proyectos
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/proyecto') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Mis proyectos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/grupos') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>grupos</p>
                             </a>
                         </li>
                     </ul>

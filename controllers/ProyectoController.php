@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\Notas;
 use app\models\Proyecto;
 use app\models\ProyectoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii;
 
 /**
  * ProyectoController implements the CRUD actions for Proyecto model.
@@ -48,6 +50,31 @@ class ProyectoController extends Controller
     }
 
     /**
+     * Lists all Proyecto models.
+     *
+     * @return string
+     */
+    public function actionProyecto()
+    {
+        $perfil = "estudiante";
+
+        if (Yii::$app->user->identity->rol == "profesor"){
+            $perfil = "profesor";
+        }
+        $data = Proyecto::find()
+            ->select('proyecto.*')
+            ->innerJoin('notas', 'proyecto.idProyecto = notas.proyecto')
+            ->innerJoin('curso', 'notas.idnotas = curso.notas')
+            ->where(['curso.'.$perfil => Yii::$app->user->identity->id]);
+
+        $data = $data->all();
+
+        return $this->render('proyecto', [
+            'data' => $data,
+        ]);
+    }
+
+    /**
      * Displays a single Proyecto model.
      * @param int $idProyecto Id Proyecto
      * @return string
@@ -71,7 +98,11 @@ class ProyectoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idProyecto' => $model->idProyecto]);
+                $notas = new Notas();
+                $notas->proyecto = $model->idProyecto;
+                if ($notas->save()){
+                    return $this->redirect(['view', 'idProyecto' => $model->idProyecto]);
+                }
             }
         } else {
             $model->loadDefaultValues();
