@@ -58,7 +58,7 @@ class RecursoController extends Controller
         $p->cc = $_GET["cc"];
         $p->nombre = $_GET["name"];
         $p->apellido = $_GET["last"];
-        $p->rol = "profesor";
+        $p->rol = $_GET["user"];
         $p->correo = $_GET["email"];
         $p->contrasena = $_GET["password"];
         $p->estado = 0;

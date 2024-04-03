@@ -14,6 +14,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'codigo')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'vcorte1')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'vcorte2')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'vcorte3')->textInput(['maxlength' => true]) ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

@@ -50,11 +50,36 @@ class ProyectoController extends Controller
     }
 
     /**
-     * Lists all Proyecto models.
+     * Lists Proyecto models.
      *
      * @return string
      */
     public function actionProyecto()
+    {
+        $perfil = "estudiante";
+
+        if (Yii::$app->user->identity->rol == "profesor"){
+            $perfil = "profesor";
+        }
+        $data = Proyecto::find()
+            ->select('proyecto.*')
+            ->innerJoin('notas', 'proyecto.idProyecto = notas.proyecto')
+            ->innerJoin('curso', 'notas.idnotas = curso.notas')
+            ->where(['curso.'.$perfil => Yii::$app->user->identity->id]);
+
+        $data = $data->all();
+
+        return $this->render('proyecto', [
+            'data' => $data,
+        ]);
+    }
+
+    /**
+     * Lists Proyecto models.
+     *
+     * @return string
+     */
+    public function actionGrupo()
     {
         $perfil = "estudiante";
 

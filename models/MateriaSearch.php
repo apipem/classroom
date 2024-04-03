@@ -18,7 +18,7 @@ class MateriaSearch extends Materia
     {
         return [
             [['idmateria'], 'integer'],
-            [['nombre'], 'safe'],
+            [['nombre', 'codigo', 'vcorte1', 'vcorte2', 'vcorte3'], 'safe'],
         ];
     }
 
@@ -61,7 +61,11 @@ class MateriaSearch extends Materia
             'idmateria' => $this->idmateria,
         ]);
 
-        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
+        $query->andFilterWhere(['like', 'nombre', $this->nombre])
+            ->andFilterWhere(['like', 'codigo', $this->codigo])
+            ->andFilterWhere(['like', 'vcorte1', $this->vcorte1])
+            ->andFilterWhere(['like', 'vcorte2', $this->vcorte2])
+            ->andFilterWhere(['like', 'vcorte3', $this->vcorte3]);
 
         return $dataProvider;
     }

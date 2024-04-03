@@ -19,6 +19,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nombre') ?>
 
+    <?= $form->field($model, 'codigo') ?>
+
+    <?= $form->field($model, 'vcorte1') ?>
+
+    <?= $form->field($model, 'vcorte2') ?>
+
+    <?php // echo $form->field($model, 'vcorte3') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
