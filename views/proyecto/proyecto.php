@@ -24,33 +24,31 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
         <thead>
         <tr>
-            <th>data</th>
-            <th>Nombre</th>
-            <th>campo</th>
-            <!-- Agrega más columnas según las propiedades que quieras mostrar -->
+            <th>nombre</th>
+            <th>descripcion</th>
+            <th>fechaIncio</th>
+            <th>fechaFin</th>
+            <?php if (Yii::$app->user->identity->rol == "profesor"){?>
+            <th>Acciones</th>
+            <?php }?>
         </tr>
         </thead>
         <tbody>
-        <?php
-        if (is_array($data)) {
-            $count = count($data);
-
-            if ($count > 0) {
-                echo "El objeto tiene más de un objeto.";
-            }
-        } else {
-            echo "No se pudo obtener los resultados.";
-        }?>
-
         <?php foreach ($data as $proyecto): ?>
             <tr>
-                <td><?= print_r($proyecto) ?></td>
-                <td><?= print_r($proyecto) ?></td>
-                <td><?= print_r($proyecto) ?></td>
-                <!-- Agrega más celdas según las propiedades que quieras mostrar -->
+                <td><?= print_r($proyecto["nombre"]) ?></td>
+                <td><?= print_r($proyecto["descripcion"]) ?></td>
+                <td><?= print_r($proyecto["fechaIncio"]) ?></td>
+                <td><?= print_r($proyecto["fechaFin"]) ?></td>
+                <?php if (Yii::$app->user->identity->rol == "profesor"){?>
+                <td>
+                    <button class="btn btn-warning">Modificar</button>
+                    <button class="btn btn-danger">Eliminar</button>
+                </td>
+                <?php }?>
             </tr>
         <?php endforeach; ?>
         </tbody>
