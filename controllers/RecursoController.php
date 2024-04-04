@@ -41,7 +41,7 @@ class RecursoController extends Controller
                     'roles' => ['?'],
                 ],
                 [
-                    'actions' => ['listestudiantes','listprofesores','listprofesoreselect','listmaterias','listproyectos','matricula','registro','materiaprofe'
+                    'actions' => ['listestudiantes','listprofesores','listprofesoreselect','listmaterias','listproyectos','matricula','registronotas','materiaprofe'
                         ,'materiaid','listmateriasuser','listproyectosuser',],
                     'allow' => true,
                     'roles' => ['@'],
@@ -125,27 +125,36 @@ class RecursoController extends Controller
         ->where("curso.profesor = ".\Yii::$app->user->identity->id)
         ->all());}
 
-    public function actionRegistro(){
-        $notas = new Notas();
-        $notas->proyecto = $_GET["proyecto"];
-        $notas->corte1 = 0;
-        $notas->corte2 = 0;
-        $notas->corte3 = 0;
-        if ($notas->save()){
-         $curso = new Curso();
-         $curso->notas = $notas->idnotas;
-         $curso->nota = 0;
-         $curso->estudiante = $_GET["estudiante"];
-         $curso->profesor = $_GET["profesor"];
-         $curso->materia = $_GET["materia"];
-            if ($curso->save()) {
-                return "ok";
+    public function actionRegistronotas(){
+
+        $notas = Notas::findOne($_GET["idnotas"]);
+
+        if ($notas !== null) {
+            $notas->corte1 = $_GET["corte1"];
+            $notas->corte2 = $_GET["corte2"];
+            $notas->corte3 = $_GET["corte3"];
+
+            if ($notas->save()) {
+                $curso = Curso::findOne($_GET["idcurso"]);
+
+                if ($curso !== null) {
+                    $curso->nota = $_GET["final"];
+
+                    if ($curso->save()) {
+                        return "ok";
+                    } else {
+                        return "Error al guardar el curso";
+                    }
+                } else {
+                    return "No se encontró el curso";
+                }
             } else {
-                return "Error";
+                return "Error al guardar las notas";
             }
-        }else{
-            return "Error";
+        } else {
+            return "No se encontraron las notas";
         }
+
 
     }
 

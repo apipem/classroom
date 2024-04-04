@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Curso;
 use app\models\Notas;
 use app\models\NotasSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -57,6 +59,7 @@ class NotasController extends Controller
                 ->select([
                     'proyecto.nombre AS nombre_proyecto',
                     'materia.nombre AS nombre_materia',
+                    'curso.idcurso AS idcurso',
                     'curso.nota',
                     'notas.corte1',
                     'notas.corte2',
@@ -96,6 +99,37 @@ class NotasController extends Controller
         ]);
     }
 
+    public function actionCargueupdate()
+    {
+        $data = Curso::find()->where("idcurso = ".$_GET["data"])->all();
+
+        $query = new \yii\db\Query();
+        $query = $query
+            ->select([
+                'proyecto.nombre AS nombre_proyecto',
+                'materia.nombre AS nombre_materia',
+                'curso.nota',
+                'notas.corte1',
+                'notas.corte2',
+                'notas.corte3',
+                'curso.idcurso AS idcurso',
+                'notas.idnotas AS idnotas',
+                'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
+            ])
+            ->from('notas')
+            ->innerJoin('curso', 'curso.notas = notas.idnotas')
+            ->innerJoin('proyecto', 'proyecto.idproyecto = notas.proyecto')
+            ->innerJoin('materia', 'materia.idmateria = curso.materia')
+            ->innerJoin('usuario', 'usuario.idusuario = curso.estudiante')
+            ->where(['curso.profesor' => \Yii::$app->user->identity->id])
+            ->andWhere(['curso.idcurso' => $data[0]["idcurso"]])
+            ->andWhere(['curso.estudiante' => $data[0]["estudiante"]])
+            ->andWhere(['curso.notas' => $data[0]["notas"]])
+            ->all();
+
+        return Json::encode($query);
+    }
+
     public function actionFiltro()
     {
 
@@ -104,6 +138,7 @@ class NotasController extends Controller
                 ->select([
                     'proyecto.nombre AS nombre_proyecto',
                     'materia.nombre AS nombre_materia',
+                    'curso.idcurso AS idcurso',
                     'curso.nota',
                     'notas.corte1',
                     'notas.corte2',

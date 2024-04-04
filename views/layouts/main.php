@@ -146,6 +146,66 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 
     });
 
+    function preupdatenotas(data,update){
+        if (update){
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/registronotas') ?>",
+                data: { proyectonotas: $("#proyectonotas").val() ,
+                    materiasnotas: $("#materiasnotas").val()  ,
+                    estudiantenotas: $("#estudiantenotas").val()  ,
+                    corte1: $("#corte1").val()  ,
+                    corte2: $("#corte2").val()  ,
+                    corte3: $("#corte3").val()  ,
+                    final: $("#final").val()  ,
+                    idnotas: $("#idnotas").val()  ,
+                    idcurso: $("#idcurso").val()  ,
+                },
+                success : function(json) {
+                    if (json == "ok"){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'notas Actualizadas!',
+                            text: 'Registro Actualizado!',
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        })
+                    }else{
+                        Swal.fire(
+                            'Oh no!',
+                            'Algo salio mal!',
+                            'error'
+                        )
+                    }
+                },
+            });
+        }else{
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('notas/cargueupdate') ?>",
+                data: { data: data ,
+                },
+                success : function(json) {
+                    json = JSON.parse(json);
+                    $("#proyectonotas").children().remove();
+                    $("#materiasnotas").children().remove();
+                    $("#estudiantenotas").children().remove();
+                    $("#proyectonotas").append("<option value='"+json[0]["nombre_proyecto"]+"'> "+json[0]["nombre_proyecto"]+"</option>");
+                    $("#materiasnotas").append("<option value='"+json[0]["nombre_materia"]+"'> "+json[0]["nombre_materia"]+"</option>");
+                    $("#estudiantenotas").append("<option value='"+json[0]["nombre_estudiante"]+"'> "+json[0]["nombre_estudiante"]+"</option>");
+                    $("#corte1").val(json[0]["corte1"]) ;
+                    $("#corte2").val(json[0]["corte2"]);
+                    $("#corte3").val(json[0]["corte3"]);
+                    $("#final").val(json[0]["nota"]);
+                    $("#idcurso").val(json[0]["idcurso"]);
+                    $("#idnotas").val(json[0]["idnotas"]);
+                    },
+            });
+        }
+    }
     function enviargrupos(){
         $.ajax({
             method: "get",
