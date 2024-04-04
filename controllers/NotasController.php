@@ -47,6 +47,55 @@ class NotasController extends Controller
         ]);
     }
 
+    public function actionNotas()
+    {
+
+        $query = new \yii\db\Query();
+
+        if (\Yii::$app->user->identity->rol == "profesor"){
+            $misnotas = $query
+                ->select([
+                    'proyecto.nombre AS nombre_proyecto',
+                    'materia.nombre AS nombre_materia',
+                    'curso.nota',
+                    'notas.corte1',
+                    'notas.corte2',
+                    'notas.corte3',
+                    'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
+                ])
+                ->from('notas')
+                ->innerJoin('curso', 'curso.notas = notas.idnotas')
+                ->innerJoin('proyecto', 'proyecto.idproyecto = notas.proyecto')
+                ->innerJoin('materia', 'materia.idmateria = curso.materia')
+                ->innerJoin('usuario', 'usuario.idusuario = curso.estudiante')
+                ->all();
+        }else{
+            $misnotas = $query
+                ->select([
+                    'proyecto.nombre AS nombre_proyecto',
+                    'materia.nombre AS nombre_materia',
+                    'curso.nota',
+                    'notas.corte1',
+                    'notas.corte2',
+                    'notas.corte3',
+                    'notas.',
+                    'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
+                ])
+                ->from('notas')
+                ->innerJoin('curso', 'curso.notas = notas.idnotas')
+                ->innerJoin('proyecto', 'proyecto.idproyecto = notas.proyecto')
+                ->innerJoin('materia', 'materia.idmateria = curso.materia')
+                ->innerJoin('usuario', 'usuario.idusuario = curso.estudiante')
+                ->where("curso.estudiante = ".\Yii::$app->user->identity->id)
+                ->all();
+            }
+
+
+        return $this->render('notas', [
+            'notas' => $misnotas,
+        ]);
+    }
+
     /**
      * Displays a single Notas model.
      * @param int $idnotas Idnotas

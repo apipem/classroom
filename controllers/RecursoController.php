@@ -140,7 +140,7 @@ class RecursoController extends Controller
     public function actionMateriaid(){return Json::encode(Materia::find()->where("idmateria =".$_GET["id"])->all());}
 
     public function actionMateriaprofe(){
-        
+
         $return = "error";
         if(isset($_GET["matprof"])) {
             $matprof = $_GET["matprof"];
