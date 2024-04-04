@@ -74,8 +74,146 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 <!-- AdminLTE App -->
 <script src="<?= Yii::$app->getUrlManager()->createUrl('js/adminlte.min.js') ?>"></script>
 <script src="<?= Yii::$app->getUrlManager()->createUrl('https://cdn.jsdelivr.net/npm/sweetalert2@11') ?>"></script>
-<script src="<?= Yii::$app->getUrlManager()->createUrl('https://cdn.jsdelivr.net/npm/sweetalert2@11') ?>"></script>
-<script  src="<?= Yii::$app->getUrlManager()->createUrl('https://code.jquery.com/jquery-3.1.1.min.js') ?>"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+    $(document).ready(function(){
+        $.ajax({
+            method: "get",
+            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listestudiantes') ?>",
+            success : function(json) {
+                JSON.parse(json).forEach(element => $("#estudiantes").append("<option value='"+element["idUsuario"]+"'> "+element["nombre"]+" "+element["apellido"]+"</option>"));
+            },
+        });
+
+        $.ajax({
+            method: "get",
+            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listprofesores') ?>",
+            success : function(json) {
+                JSON.parse(json).forEach(element => $("#profesores").append("<option value='"+element["idUsuario"]+"'> "+element["nombre"]+" "+element["apellido"]+"</option>"));
+            },
+        });
+
+        $.ajax({
+            method: "get",
+            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listmaterias') ?>",
+            success : function(json) {
+                JSON.parse(json).forEach(element => $("#materias").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
+            },
+        });
+
+        $.ajax({
+            method: "get",
+            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectos') ?>",
+            success : function(json) {
+                JSON.parse(json).forEach(element => $("#proyecto").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
+            },
+        });
+
+    });
+
+    function enviargrupos(){
+        $.ajax({
+            method: "get",
+            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/registro') ?>",
+            data: { estudiante: $("#estudiantes").val() ,
+                profesor: $("#profesores").val()  ,
+                materia: $("#materias").val()  ,
+                proyecto: $("#proyecto").val()  ,
+            },
+            success : function(json) {
+                if (json == "ok"){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Inscrito!',
+                        text: 'Registro completo!',
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    })
+                }else{
+                    Swal.fire(
+                        'Oh no!',
+                        'Algo salio mal!',
+                        'error'
+                    )
+                }
+            },
+        });
+    }
+
+
+        function materiaprofesor() {
+
+            var materias = $("#materias").val();
+
+            if (Array.isArray(materias)) {
+                materias.forEach(function (materia, indice) {
+                    if (materia != "Selecciona las Materias") {
+                        $.ajax({
+                            method: "get",
+                            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listprofesoreselect') ?>",
+                            data: {
+                            },
+                            success: function (html) {
+                                $.ajax({
+                                    method: "get",
+                                    url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/materiaid') ?>",
+                                    data: {
+                                        id: materia,
+                                    },
+                                    success: function (json) {
+                                        var a = JSON.parse(json);
+                                        $("#tablemodalmaterias").append("<tr><td>" + indice + "</td><td><input hidden value='" + materia + "' id='materiaid" + indice + "'>" + a[0]["nombre"] + " </td><td>"+html+" </td></tr>");
+                                    },
+                                });
+                            },
+                        });
+                    }
+                });
+            }
+            $(".tdselectprofe").append("<p>asdasd </p>");
+
+        }
+
+    function sendata() {
+        $.ajax({
+            method: "get",
+            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/materiaprofe') ?>",
+            data: {
+                estudiante: $("#estudiantes").val(),
+                profesor: $("#profesores").val(),
+                materia: $("#materias").val(),
+                proyecto: $("#proyecto").val(),
+            },
+            success: function (json) {
+                if (json == "ok") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Inscrito!',
+                        text: 'Registro completo!',
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    })
+                } else {
+                    Swal.fire(
+                        'Oh no!',
+                        'Algo salio mal!',
+                        'error'
+                    )
+                }
+            },
+        });
+    }
+
+</script>
 </body>
 <?php $this->endPage() ?>
 <?php } else { ?>
@@ -83,7 +221,7 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
     <?php $this->beginBody() ?>
     <?php echo $this->render("index"); ?>
     <?php $this->endBody() ?>
-    <script  src="<?= Yii::$app->getUrlManager()->createUrl('https://code.jquery.com/jquery-3.1.1.min.js') ?>"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         function sedes(item, index) {
             $("#sede").append("<option value='"+item["idSede"]+"'> "+item["nombre"]+"</option>");
@@ -97,49 +235,20 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
         function td(item, index) {
             $("#td").append("<option value='"+item["idTipo_Documento"]+"'> "+item["tipo"]+"</option>");
         }
+        function sedes(item, index) {
+            $("#estudiantes").append("<option value='"+item["idSede"]+"'> "+item["nombre"]+"</option>");
+        }
+
 
         $(document).ready(function(){
             $.ajax({
                 method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/genero') ?>",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/estudiantes') ?>",
                 success : function(json) {
-                    JSON.parse(json).forEach(element => $("#genero").append("<option value='"+element["idGenero"]+"'> "+element["nombre"]+"</option>"));
+                    JSON.parse(json).forEach(element => $("#estudiantes").append("<option value='"+element["idGenero"]+"'> "+element["nombre"]+"</option>"));
                 },
             });
 
-            $.ajax({
-                method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/td') ?>",
-                success : function(json) {
-                    JSON.parse(json).forEach(td);
-                },
-            });
-
-            $.ajax({
-                method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/sedes') ?>",
-                success : function(json) {
-                    JSON.parse(json).forEach(sedes);
-                },
-            });
-
-            $.ajax({
-                method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/jornadas') ?>",
-                success : function(json) {
-                    var a = JSON.parse(json)
-                    a.forEach(jornadas);
-                },
-            });
-
-            $.ajax({
-                method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/cursos') ?>",
-                success : function(json) {
-                    var a = JSON.parse(json)
-                    a.forEach(cursos);
-                },
-            });
         });
 
 
@@ -175,7 +284,9 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
                     }
                 },
             });
+
         }
+
     </script>
     <?php $this->endPage() ?>
 <?php } ?>

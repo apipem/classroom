@@ -74,12 +74,7 @@ class ProyectoController extends Controller
         ]);
     }
 
-    /**
-     * Lists Proyecto models.
-     *
-     * @return string
-     */
-    public function actionGrupo()
+    public function actionGeneral()
     {
         $perfil = "estudiante";
 
@@ -94,7 +89,58 @@ class ProyectoController extends Controller
 
         $data = $data->all();
 
-        return $this->render('proyecto', [
+        return $this->render('general', [
+            'data' => $data,
+        ]);
+    }
+
+    /**
+     * Lists Proyecto models.
+     *
+     * @return string
+     */
+    public function actionGrupos()
+    {
+
+        $query = new \yii\db\Query();
+
+        if (Yii::$app->user->identity->rol == "profesor"){
+            $data = $query
+                ->select([
+                    'proyecto.nombre AS nombre_proyecto',
+                    'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
+                ])
+                ->from('proyecto')
+                ->innerJoin('notas', 'proyecto.idProyecto = notas.proyecto')
+                ->innerJoin('curso', 'notas.idnotas = curso.notas')
+                ->innerJoin('usuario', 'usuario.idUsuario = curso.estudiante')
+                ->distinct()
+                ->all();
+        }else{
+            $data = Proyecto::find()
+                ->select('proyecto.idProyecto')
+                ->innerJoin('notas', 'proyecto.idProyecto = notas.proyecto')
+                ->innerJoin('curso', 'notas.idnotas = curso.notas')
+                ->where(['curso.estudiante' => Yii::$app->user->identity->id])->all();
+
+            if ($data){
+                $data = $query
+                    ->select([
+                        'proyecto.nombre AS nombre_proyecto',
+                        'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
+                    ])
+                    ->from('proyecto')
+                    ->innerJoin('notas', 'proyecto.idProyecto = notas.proyecto')
+                    ->innerJoin('curso', 'notas.idnotas = curso.notas')
+                    ->innerJoin('usuario', 'usuario.idUsuario = curso.estudiante')
+                    ->innerJoin('materia', 'materia.idMateria = curso.materia')
+                    ->where("notas.proyecto = ".$data[0]->idProyecto)
+                    ->distinct()
+                    ->all();
+            }
+        }
+
+        return $this->render('grupos', [
             'data' => $data,
         ]);
     }

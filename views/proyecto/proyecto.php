@@ -39,10 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <tbody>
         <?php foreach ($data as $proyecto): ?>
             <tr>
-                <td><?= print_r($proyecto["nombre"]) ?></td>
-                <td><?= print_r($proyecto["descripcion"]) ?></td>
-                <td><?= print_r($proyecto["fechaIncio"]) ?></td>
-                <td><?= print_r($proyecto["fechaFin"]) ?></td>
+                <td><?= $proyecto["nombre"] ?></td>
+                <td><?= $proyecto["descripcion"] ?></td>
+                <td><?= $proyecto["fechaIncio"] ?></td>
+                <td><?= $proyecto["fechaFin"] ?></td>
                 <?php if (Yii::$app->user->identity->rol == "profesor"){?>
                 <td>
                     <button class="btn btn-warning">Modificar</button>

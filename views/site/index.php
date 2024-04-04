@@ -90,7 +90,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <script class="u-script" type="text/javascript" src="js/jquery-1.9.1.min.js" defer=""></script>
 <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     function estudiantes(id) {
         $.ajax({

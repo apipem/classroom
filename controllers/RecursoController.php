@@ -7,8 +7,11 @@ use app\models\CursoSearch;
 use app\models\Estudiante;
 use app\models\Genero;
 use app\models\Jornada;
+use app\models\Materia;
 use app\models\Matricula;
+use app\models\Notas;
 use app\models\Persona;
+use app\models\Proyecto;
 use app\models\Sede;
 use app\models\TipoDocumento;
 use app\models\Usuario;
@@ -33,12 +36,12 @@ class RecursoController extends Controller
             'class' => AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['cursos', 'jornadas', 'sedes','persona','genero','td'],
+                    'actions' => ['persona'],
                     'allow' => true,
                     'roles' => ['?'],
                 ],
                 [
-                    'actions' => ['estudiantes','matricula'],
+                    'actions' => ['listestudiantes','listprofesores','listprofesoreselect','listmaterias','listproyectos','matricula','registro','materiaprofe','materiaid'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -88,5 +91,50 @@ class RecursoController extends Controller
         $s->save();
         return "200";
     }
+
+    public function actionListestudiantes(){return Json::encode(Usuario::find()->where("rol = 'estudiante'")->all());}
+
+    public function actionListprofesores(){return Json::encode(Usuario::find()->where("rol = 'profesor'")->all());}
+
+    public function actionListprofesoreselect(){
+        $html = '<div class="col-md-6"><select class="custom-select" id="profesores"><option selected>Selecciona un Profesor</option></select></div>';
+        $profesores = Usuario::find()->where("rol = 'profesor'")->all();
+
+
+        return $html;
+    }
+
+
+
+    public function actionListmaterias(){return Json::encode(Materia::find()->all());}
+
+    public function actionListproyectos(){return Json::encode(Proyecto::find()->all());}
+
+    public function actionRegistro(){
+        $notas = new Notas();
+        $notas->proyecto = $_GET["proyecto"];
+        $notas->corte1 = 0;
+        $notas->corte2 = 0;
+        $notas->corte3 = 0;
+        if ($notas->save()){
+         $curso = new Curso();
+         $curso->notas = $notas->idnotas;
+         $curso->nota = 0;
+         $curso->estudiante = $_GET["estudiante"];
+         $curso->profesor = $_GET["profesor"];
+         $curso->materia = $_GET["materia"];
+            if ($curso->save()) {
+                return "ok";
+            } else {
+                return "Error";
+            }
+        }else{
+            return "Error";
+        }
+
+    }
+
+    public function actionMateriaid(){return Json::encode(Materia::find()->where("idmateria =".$_GET["id"])->all());}
+
 
 }
