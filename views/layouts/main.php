@@ -79,6 +79,23 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 <script>
 
     $(document).ready(function(){
+
+        $('#proyecto').change(function() {
+            var valorProyecto = $(this).val();
+
+            if (valorProyecto !== "") {
+                $('#materias').val("0");
+            }
+        });
+
+        $('#materias').change(function() {
+            var valorMateria = $(this).val();
+
+            if (valorMateria !== "") {
+                $('#proyecto').val("0");
+            }
+        });
+
         $.ajax({
             method: "get",
             url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listestudiantes') ?>",
@@ -217,6 +234,7 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
             },
         });
     }
+
 
 </script>
 </body>

@@ -68,6 +68,7 @@ class NotasController extends Controller
                 ->innerJoin('proyecto', 'proyecto.idproyecto = notas.proyecto')
                 ->innerJoin('materia', 'materia.idmateria = curso.materia')
                 ->innerJoin('usuario', 'usuario.idusuario = curso.estudiante')
+                ->where("curso.profesor = ".\Yii::$app->user->identity->id)
                 ->all();
         }else{
             $misnotas = $query
@@ -78,7 +79,6 @@ class NotasController extends Controller
                     'notas.corte1',
                     'notas.corte2',
                     'notas.corte3',
-                    'notas.',
                     'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
                 ])
                 ->from('notas')
@@ -96,6 +96,42 @@ class NotasController extends Controller
         ]);
     }
 
+    public function actionFiltro()
+    {
+
+        $query = new \yii\db\Query();
+        $query = $query
+                ->select([
+                    'proyecto.nombre AS nombre_proyecto',
+                    'materia.nombre AS nombre_materia',
+                    'curso.nota',
+                    'notas.corte1',
+                    'notas.corte2',
+                    'notas.corte3',
+                    'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
+                ])
+                ->from('notas')
+                ->innerJoin('curso', 'curso.notas = notas.idnotas')
+                ->innerJoin('proyecto', 'proyecto.idproyecto = notas.proyecto')
+                ->innerJoin('materia', 'materia.idmateria = curso.materia')
+                ->innerJoin('usuario', 'usuario.idusuario = curso.estudiante')
+                ->where("curso.profesor = ".\Yii::$app->user->identity->id);
+                $proyectoId = $_GET["proyecto"];
+                $materiaId = $_GET["materia"];
+
+                if ($proyectoId !== "0") {
+                    $query->andWhere(['proyecto.idproyecto' => $proyectoId]);
+                }
+
+                if ($materiaId !== "0") {
+                    $query->andWhere(['curso.materia' => $materiaId]);
+                }
+               $filtro = $query->all();
+
+        return $this->render('notas', [
+            'notas' => $filtro,
+        ]);
+    }
     /**
      * Displays a single Notas model.
      * @param int $idnotas Idnotas

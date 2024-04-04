@@ -16,25 +16,24 @@ $this->params['breadcrumbs'][] = $this->title;
 <h2 class="mt-5 mb-3">Notas</h2>
 <?php if (Yii::$app->user->identity->rol == "profesor"){?>
     <div class="container">
-        <form class="row g-3">
+        <form class="row g-3" action="<?= Yii::$app->getUrlManager()->createUrl('notas/filtro') ?>" method="get">
             <div class="col-md-6">
-                <label for="inputEmail4" class="form-label">Proyecto</label>
-                <select class="custom-select" id="proyecto">
-                    <option selected>Selecciona un estudiante</option>
+                <label for="proyecto" class="form-label">Proyecto</label>
+                <select class="custom-select" id="proyecto" name="proyecto">
+                    <option value="0" selected>Selecciona un proyecto</option>
                 </select>
             </div>
             <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Materia</label>
-                <select class="custom-select" id="proyecto">
-                    <option selected>Selecciona una materia</option>
+                <label for="materias" class="form-label">Materia</label>
+                <select  value="0" class="custom-select" id="materias" name="materia">
+                    <option value="0" selected>Selecciona una materia</option>
                 </select>
             </div>
-            <div class="col-11">
+            <div class="col-12">
             </div>
-            <div class="col-1">
+            <div class="col-12">
                 <div class="text-right mb-3">
-                    <br>
-                    <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" onclick="materiaprofesor()" class="btn btn-success">Filtrar</button>
+                    <button type="submit" class="btn btn-success">Filtrar</button>
                 </div>
             </div>
         </form>
