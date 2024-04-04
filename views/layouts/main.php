@@ -73,7 +73,6 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 <script src="<?= Yii::$app->getUrlManager()->createUrl('js/bootstrap.bundle.min.js') ?>"></script>
 <!-- AdminLTE App -->
 <script src="<?= Yii::$app->getUrlManager()->createUrl('js/adminlte.min.js') ?>"></script>
-<script src="<?= Yii::$app->getUrlManager()->createUrl('https://cdn.jsdelivr.net/npm/sweetalert2@11') ?>"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -148,7 +147,7 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 
 
         function materiaprofesor() {
-
+            $("#tablemodalmaterias").children(0).remove();
             var materias = $("#materias").val();
 
             if (Array.isArray(materias)) {
@@ -168,7 +167,7 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
                                     },
                                     success: function (json) {
                                         var a = JSON.parse(json);
-                                        $("#tablemodalmaterias").append("<tr><td>" + indice + "</td><td><input hidden value='" + materia + "' id='materiaid" + indice + "'>" + a[0]["nombre"] + " </td><td>"+html+" </td></tr>");
+                                        $("#tablemodalmaterias").append("<tr><td><input class='valmateria' hidden value='" + materia + "' id='materiaid" + indice + "'>" + a[0]["nombre"] + " </td><td>"+html+" </td></tr>");
                                     },
                                 });
                             },
@@ -176,18 +175,24 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
                     }
                 });
             }
-            $(".tdselectprofe").append("<p>asdasd </p>");
-
         }
 
     function sendata() {
+
+        var matprof = [];
+        $('#tablemodalmateriaprofe tr').each(function(index, fila) {
+            // Obtener el valor seleccionado del select en la segunda columna
+            var valorSelect = $(fila).find('td:eq(1) select').val();
+            var valorInput = $(fila).find('.valmateria').val();
+            var parValores = [valorSelect, valorInput];
+            matprof.push(parValores);
+        });
         $.ajax({
             method: "get",
             url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/materiaprofe') ?>",
             data: {
                 estudiante: $("#estudiantes").val(),
-                profesor: $("#profesores").val(),
-                materia: $("#materias").val(),
+                matprof: matprof,
                 proyecto: $("#proyecto").val(),
             },
             success: function (json) {

@@ -24,21 +24,15 @@ $this->params['breadcrumbs'][] = $this->title;
             </select>
         </div>
         <div class="col-md-6">
-            <label for="inputPassword4" class="form-label">Profesor</label>
-            <select class="custom-select" id="profesores">
-                <option selected>Selecciona un Profesor</option>
-            </select>
-        </div>
-        <div class="col-md-6">
-            <label for="inputPassword4" class="form-label">Materia</label>
-            <select class="custom-select" multiple aria-label="multiple select example" id="materias" multiple>
-                <option selected>Selecciona las Materias</option>
-            </select>
-        </div>
-        <div class="col-md-6">
             <label for="inputPassword4" class="form-label">Proyecto</label>
             <select class="custom-select" id="proyecto">
                 <option selected>Selecciona un proyecto</option>
+            </select>
+        </div>
+        <div class="col-md-12">
+            <label for="inputPassword4" class="form-label">Materia</label>
+            <select class="custom-select" multiple aria-label="multiple select example" id="materias" multiple>
+                <option selected>Selecciona las Materias</option>
             </select>
         </div>
         <div class="col-11">
@@ -83,10 +77,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </table>
 </div>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Botón para abrir el modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Abrir Modal
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -97,10 +87,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <table class="table">
+                <table class="table" id="tablemodalmateriaprofe">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Materia</th>
                         <th scope="col">Profesor</th>
                     </tr>
@@ -112,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success">Guardar Cambios</button>
+                <button type="button" class="btn btn-success" onclick="sendata()">Guardar Cambios</button>
             </div>
         </div>
     </div>

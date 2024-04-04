@@ -97,10 +97,13 @@ class RecursoController extends Controller
     public function actionListprofesores(){return Json::encode(Usuario::find()->where("rol = 'profesor'")->all());}
 
     public function actionListprofesoreselect(){
-        $html = '<div class="col-md-6"><select class="custom-select" id="profesores"><option selected>Selecciona un Profesor</option></select></div>';
+        $html = '<select class="custom-select" id="profesores">';
         $profesores = Usuario::find()->where("rol = 'profesor'")->all();
+        foreach ($profesores as $profesor) {
+            $html = $html ."<option value='".$profesor->idUsuario."'>".$profesor->nombre." ".$profesor->apellido."</option>";
+        }
 
-
+        $html = $html ."</select>";
         return $html;
     }
 
@@ -135,6 +138,40 @@ class RecursoController extends Controller
     }
 
     public function actionMateriaid(){return Json::encode(Materia::find()->where("idmateria =".$_GET["id"])->all());}
+
+    public function actionMateriaprofe(){
+        
+        $return = "error";
+        if(isset($_GET["matprof"])) {
+            $matprof = $_GET["matprof"];
+
+            foreach($matprof as $indice => $valor) {
+                $notas = new Notas();
+                $notas->proyecto = $_GET["proyecto"];
+                $notas->corte1 = 0;
+                $notas->corte2 = 0;
+                $notas->corte3 = 0;
+
+                if ($notas->save()){
+                    $curso = new Curso();
+                    $curso->notas = $notas->idnotas;
+                    $curso->nota = 0;
+                    $curso->estudiante = $_GET["estudiante"];
+                    $curso->profesor = $valor[0];
+                    $curso->materia = $valor[1];
+                    if ($curso->save()) {
+                        $return = "ok";
+                    } else {
+                        $return = "error";
+                    }
+                }else{
+                    return "error";
+                }
+            }
+        }
+
+        return $return ;
+    }
 
 
 }
