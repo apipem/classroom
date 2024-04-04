@@ -41,7 +41,8 @@ class RecursoController extends Controller
                     'roles' => ['?'],
                 ],
                 [
-                    'actions' => ['listestudiantes','listprofesores','listprofesoreselect','listmaterias','listproyectos','matricula','registro','materiaprofe','materiaid'],
+                    'actions' => ['listestudiantes','listprofesores','listprofesoreselect','listmaterias','listproyectos','matricula','registro','materiaprofe'
+                        ,'materiaid','listmateriasuser','listproyectosuser',],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -112,6 +113,17 @@ class RecursoController extends Controller
     public function actionListmaterias(){return Json::encode(Materia::find()->all());}
 
     public function actionListproyectos(){return Json::encode(Proyecto::find()->all());}
+
+    public function actionListmateriasuser(){return Json::encode(Materia::find()
+        ->innerJoin('curso', 'curso.materia = materia.idmateria')
+        ->where("curso.profesor = ".\Yii::$app->user->identity->id)
+        ->all());}
+
+    public function actionListproyectosuser(){return Json::encode(Proyecto::find()
+        ->innerJoin('notas', 'notas.proyecto = proyecto.idproyecto')
+        ->innerJoin('curso', 'curso.notas = notas.idnotas')
+        ->where("curso.profesor = ".\Yii::$app->user->identity->id)
+        ->all());}
 
     public function actionRegistro(){
         $notas = new Notas();

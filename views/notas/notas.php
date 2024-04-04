@@ -19,13 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <form class="row g-3" action="<?= Yii::$app->getUrlManager()->createUrl('notas/filtro') ?>" method="get">
             <div class="col-md-6">
                 <label for="proyecto" class="form-label">Proyecto</label>
-                <select class="custom-select" id="proyecto" name="proyecto">
+                <select class="custom-select" id="proyectouser" name="proyecto">
                     <option value="0" selected>Selecciona un proyecto</option>
                 </select>
             </div>
             <div class="col-md-6">
                 <label for="materias" class="form-label">Materia</label>
-                <select  value="0" class="custom-select" id="materias" name="materia">
+                <select  value="0" class="custom-select" id="materiasuser" name="materia">
                     <option value="0" selected>Selecciona una materia</option>
                 </select>
             </div>

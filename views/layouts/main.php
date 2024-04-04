@@ -80,19 +80,19 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 
     $(document).ready(function(){
 
-        $('#proyecto').change(function() {
+        $('#proyectouser').change(function() {
             var valorProyecto = $(this).val();
 
             if (valorProyecto !== "") {
-                $('#materias').val("0");
+                $('#materiasuser').val("0");
             }
         });
 
-        $('#materias').change(function() {
+        $('#materiasuser').change(function() {
             var valorMateria = $(this).val();
 
             if (valorMateria !== "") {
-                $('#proyecto').val("0");
+                $('#proyectouser').val("0");
             }
         });
 
@@ -125,6 +125,22 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
             url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectos') ?>",
             success : function(json) {
                 JSON.parse(json).forEach(element => $("#proyecto").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
+            },
+        });
+
+        $.ajax({
+            method: "get",
+            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listmateriasuser') ?>",
+            success : function(json) {
+                JSON.parse(json).forEach(element => $("#materiasuser").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
+            },
+        });
+
+        $.ajax({
+            method: "get",
+            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectosuser') ?>",
+            success : function(json) {
+                JSON.parse(json).forEach(element => $("#proyectouser").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
             },
         });
 
