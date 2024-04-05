@@ -236,7 +236,7 @@ class NotasController extends Controller
     {
         $this->findModel($idnotas)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['idcurso']);
     }
 
     /**

@@ -13,9 +13,9 @@ use yii\grid\GridView;
 $this->title = 'Notas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<h2 class="mt-5 mb-3">Notas</h2>
 <?php if (Yii::$app->user->identity->rol == "profesor"){?>
     <div class="container">
+        <h2 class="mt-5 mb-3">Filtrar</h2>
         <form class="row g-3" action="<?= Yii::$app->getUrlManager()->createUrl('notas/filtro') ?>" method="get">
             <div class="col-md-6">
                 <label for="proyecto" class="form-label">Proyecto</label>
@@ -39,52 +39,62 @@ $this->params['breadcrumbs'][] = $this->title;
         </form>
     </div>
 <?php }?>
-<div class="proyecto-index">
+<div class="container">
+    <h2 class="mt-5 mb-3">Notas</h2>
+    <div class="proyecto-index">
 
-    <?php $rol = Yii::$app->user->identity->rol == "profesor"; ?>
-    <table class="table table-striped table-bordered">
-        <thead>
-        <tr>
-            <th>Proyecto</th>
-            <th>Materia</th>
-            <?php if ($rol){?>
-                <th>Estudiante</th>
-            <?php }?>
-            <th>Corte1</th>
-            <th>Corte2</th>
-            <th>Corte3</th>
-            <th>Final</th>
-
-            <?php if ($rol){?>
-                <th>Acciones</th>
-            <?php }?>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($notas as $proyecto): ?>
+        <?php $rol = Yii::$app->user->identity->rol == "profesor"; ?>
+        <table class="table table-striped table-bordered">
+            <thead>
             <tr>
-                <td><?=  $proyecto["nombre_proyecto"] ?></td>
-                <td><?=  $proyecto["nombre_materia"] ?></td>
+                <th>Proyecto</th>
+                <th>Materia</th>
                 <?php if ($rol){?>
-                <td><?=  $proyecto["nombre_estudiante"] ?></td>
+                    <th>Estudiante</th>
                 <?php }?>
-                <td><?=  $proyecto["corte1"] ?></td>
-                <td><?=  $proyecto["corte2"] ?></td>
-                <td><?=  $proyecto["corte3"] ?></td>
-                <td><?=  $proyecto["nota"] ?></td>
+                <th>Corte1</th>
+                <th>Corte2</th>
+                <th>Corte3</th>
+                <th>Final</th>
 
-                <?php if ($rol): ?>
-                    <td>
-                        <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" onclick="preupdatenotas(<?= $proyecto["idcurso"] ?>,false)" class="btn btn-warning">Editar</button>
-                        <button class="btn btn-danger">Eliminar</button>
-                    </td>
-                <?php endif; ?>
+                <?php if ($rol){?>
+                    <th>Acciones</th>
+                <?php }?>
             </tr>
-        <?php endforeach; ?>
+            </thead>
+            <tbody>
+            <?php foreach ($notas as $proyecto): ?>
+                <tr>
+                    <td><?=  $proyecto["nombre_proyecto"] ?></td>
+                    <td><?=  $proyecto["nombre_materia"] ?></td>
+                    <?php if ($rol){?>
+                        <td><?=  $proyecto["nombre_estudiante"] ?></td>
+                    <?php }?>
+                    <td><?=  $proyecto["corte1"] ?></td>
+                    <td><?=  $proyecto["corte2"] ?></td>
+                    <td><?=  $proyecto["corte3"] ?></td>
+                    <td><?=  $proyecto["nota"] ?></td>
 
-        </tbody>
-    </table>
+                    <?php if ($rol): ?>
+                        <td>
+                            <form action="<?= Yii::$app->getUrlManager()->createUrl('recurso/deletecurso') ?>" method="get">
+
+                                <input type="text" hidden name="idcurso" value="<?=  $proyecto["idcurso"] ?>">
+                                <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" onclick="preupdatenotas(<?= $proyecto["idcurso"] ?>,false)" class="btn btn-warning">Editar</button>
+                                <button class="btn btn-danger" data-confirm="Estas  seguro de eliminar el estudiante <?=  $proyecto["nombre_estudiante"] ?>?">Eliminar</button>
+                            </form>
+
+
+                        </td>
+                    <?php endif; ?>
+                </tr>
+            <?php endforeach; ?>
+
+            </tbody>
+        </table>
+    </div>
 </div>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Modal -->
@@ -119,21 +129,26 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="col-md-3">
                             <label for="materias" class="form-label">corte1</label>
                             <input type="number" class="form-control" id="corte1" placeholder="">
-                            <input type="number" class="form-control" id="materiacorte1" placeholder="">
+                            <label for="materias" class="form-label">%</label>
+                            <input type="number" disabled class="form-control" id="materiacorte1" placeholder="">
                         </div>
                         <div class="col-md-3">
                             <label for="materias" class="form-label">corte2</label>
                             <input type="number" class="form-control" id="corte2" placeholder="">
-                            <input type="number" class="form-control" id="materiacorte2" placeholder="">
+                            <label for="materias" class="form-label">%</label>
+                            <input type="number"disabled class="form-control" id="materiacorte2" placeholder="">
                         </div>
                         <div class="col-md-3">
                             <label for="materias" class="form-label">corte3</label>
                             <input type="number" class="form-control" id="corte3" placeholder="">
-                            <input type="number" class="form-control" id="materiacorte3" placeholder="">
+                            <label for="materias" class="form-label">%</label>
+                            <input type="number" disabled class="form-control" id="materiacorte3" placeholder="">
                         </div>
                         <div class="col-md-3">
                             <label for="materias" class="form-label">final</label>
                             <input type="number" disabled class="form-control" id="final" placeholder="">
+                            <label for="materias" class="form-label">%</label>
+                            <input type="text" disabled class="form-control" value="100%" placeholder="">
                             <input type="number" disabled hidden class="form-control" id="idnotas" placeholder="">
                             <input type="number" disabled hidden class="form-control" id="idcurso" placeholder="">
                         </div>

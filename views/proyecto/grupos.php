@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php if (Yii::$app->user->identity->rol == "profesor"){?>
 <div class="container">
-    <h2 class="mt-5 mb-3">Grupos por proyecto</h2>
+    <h2 class="mt-5 mb-3">Asignacion de proyecto</h2>
     <form class="row g-3">
         <div class="col-md-6">
             <label for="inputEmail4" class="form-label">Estudiante</label>
@@ -35,46 +35,49 @@ $this->params['breadcrumbs'][] = $this->title;
                 <option selected>Selecciona las Materias</option>
             </select>
         </div>
-        <div class="col-11">
-        </div>
-        <div class="col-1">
-            <div class="text-right mb-3">
-                <br>
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" onclick="materiaprofesor()" class="btn btn-success">Guardar</button>
+        <div class="row">
+            <div class="col-11">
+            </div>
+            <div class="col-1">
+                <div class="text-right mb-3">
+                    <br>
+                    <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" onclick="materiaprofesor()" class="btn btn-success">Guardar</button>
+                </div>
             </div>
         </div>
     </form>
 </div>
 <?php }?>
-<div class="proyecto-index">
+<div class="container">
+    <div class="proyecto-index">
 
-    <table class="table table-striped table-bordered">
-        <thead>
-        <tr>
-            <th>proyecto</th>
-            <th>estudiante</th>
-            <?php if (Yii::$app->user->identity->rol == "profesor"){?>
-            <th>Acciones</th>
-            <?php }?>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($data as $proyecto): ?>
+        <table class="table table-striped table-bordered">
+            <thead>
             <tr>
-                <td><?=  $proyecto["nombre_proyecto"] ?></td>
-                <td><?=  $proyecto["nombre_estudiante"] ?></td>
-
-                <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
-                    <td>
-                        <button class="btn btn-warning">Modificar</button>
-                        <button class="btn btn-danger">Eliminar</button>
-                    </td>
-                <?php endif; ?>
+                <th>proyecto</th>
+                <th>estudiante</th>
+                <?php if (Yii::$app->user->identity->rol == "profesor"){?>
+                    <th>Acciones</th>
+                <?php }?>
             </tr>
-        <?php endforeach; ?>
+            </thead>
+            <tbody>
+            <?php foreach ($data as $proyecto): ?>
+                <tr>
+                    <td><?=  $proyecto["nombre_proyecto"] ?></td>
+                    <td><?=  $proyecto["nombre_estudiante"] ?></td>
 
-        </tbody>
-    </table>
+                    <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+                        <td>
+                            <button class="btn btn-warning">Modificar</button>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+            <?php endforeach; ?>
+
+            </tbody>
+        </table>
+    </div>
 </div>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
