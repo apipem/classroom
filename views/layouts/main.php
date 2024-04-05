@@ -171,6 +171,14 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 
         $.ajax({
             method: "get",
+            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectos') ?>",
+            success : function(json) {
+                JSON.parse(json).forEach(element => $("#proyecto1").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
+            },
+        });
+
+        $.ajax({
+            method: "get",
             url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listmateriasuser') ?>",
             success : function(json) {
                 JSON.parse(json).forEach(element => $("#materiasuser").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
@@ -187,6 +195,44 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 
     });
 
+    function proyectoestudiante(idestudiante,proyecto,estudiante,action,anteriorproyecto){
+
+        if (action == 0){
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/updateproyectoestudiante') ?>",
+                data: { proyecto: $("#proyecto1").val() ,
+                    estudiante: $("#estudiante1").val()  ,
+                },
+                success : function(json) {
+                    if (json == "ok"){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Cambio de proyecto!',
+                            text: 'Registro Actualizado!',
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        })
+                    }else{
+                        Swal.fire(
+                            'Oh no!',
+                            'Algo salio mal!',
+                            'error'
+                        )
+                    }
+                },
+            });
+        }
+        if (action == 1){
+            $("#estudiante1").children().remove();
+            $("#estudiante1").append("<option value='"+idestudiante+"' selected> "+estudiante+"</option>");
+            $("#proyectoafter").children().remove();
+            $("#proyectoafter").append("<option value='"+anteriorproyecto+"' selected> "+anteriorproyecto+"</option>");
+        }
+    }
     function preupdatenotas(data,update){
         if (update){
             $.ajax({

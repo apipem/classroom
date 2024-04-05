@@ -42,7 +42,8 @@ class RecursoController extends Controller
                 ],
                 [
                     'actions' => ['listestudiantes','listprofesores','listprofesoreselect','listmaterias','listproyectos','matricula','registronotas','materiaprofe'
-                        ,'materiaid','listmateriasuser','listproyectosuser','deletecurso',],
+                        ,'materiaid','listmateriasuser','listproyectosuser','deletecurso',
+                        'updateproyectoestudiante',],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -161,8 +162,6 @@ class RecursoController extends Controller
     public function actionMateriaid(){return Json::encode(Materia::find()->where("idmateria =".$_GET["id"])->all());}
 
     public function actionDeletecurso(){
-        echo 'alo';
-        echo  $_GET["idcurso"];
 
         $idCurso = $_GET["idcurso"];
 
@@ -174,7 +173,27 @@ class RecursoController extends Controller
             return "No se pudo eliminar el curso";
         }
     }
+    public function actionUpdateproyectoestudiante(){
 
+        $proyecto = $_GET["proyecto"];
+        $estudiante = $_GET["estudiante"];
+
+        $return = "ok";
+        $cursos = Curso::find()->where(['estudiante' => $estudiante])->all();
+        foreach ($cursos as $curso) {
+            $curso = Curso::findOne($curso->idcurso);
+            $nota = $curso->notas0;
+            $nota->proyecto = $proyecto;
+
+            if ($nota->save()){
+                $return = "ok";
+            }else{
+                $return = "error";
+            }
+
+        }
+        return $return;
+    }
     public function actionMateriaprofe(){
 
         $return = "error";

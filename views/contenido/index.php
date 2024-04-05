@@ -13,35 +13,51 @@ use yii\grid\GridView;
 $this->title = 'Contenidos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="contenido-index">
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+        <div class="col-2">
+            <div class="container">
+                <?php if (Yii::$app->user->identity->rol == "profesor"){?>
+                    <?= Html::a('Create Proyecto', ['create'], ['class' => 'btn btn-success']) ?>
+                <?php }?>
+            </div>
+        </div>
+    </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Fecha inicio</th>
+                <th>Fecha fin</th>
+                <?php if (Yii::$app->user->identity->rol == "profesor"){?>
+                    <th>acciones</th>
+                <?php }?>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($data as $obj): ?>
+                <tr>
+                    <td><?=  print_r($obj) ?></td>
 
-    <p>
-        <?= Html::a('Create Contenido', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+                    <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+                        <td>
+                            <button class="btn btn-warning">Modificar</button>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="row">
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            //'idcontenido',
-            'contenido:ntext',
-            'descripcion:ntext',
-            'materia',
-            'proyecto',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Contenido $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'idcontenido' => $model->idcontenido]);
-                 }
-            ],
-        ],
-    ]); ?>
-
-
+    </div>
 </div>
+

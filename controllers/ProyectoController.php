@@ -106,7 +106,8 @@ class ProyectoController extends Controller
             $data = $query
                 ->select([
                     'proyecto.nombre AS nombre_proyecto',
-                    'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
+                    'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante',
+                    'usuario.idusuario AS id',
                 ])
                 ->from('proyecto')
                 ->innerJoin('notas', 'proyecto.idProyecto = notas.proyecto')

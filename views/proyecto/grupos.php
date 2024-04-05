@@ -64,13 +64,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <tbody>
             <?php foreach ($data as $proyecto): ?>
                 <tr>
+
                     <td><?=  $proyecto["nombre_proyecto"] ?></td>
                     <td><?=  $proyecto["nombre_estudiante"] ?></td>
 
                     <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
                         <td>
-                            <button class="btn btn-warning">Modificar</button>
+                            <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" onclick="proyectoestudiante('<?= $proyecto["id"] ?>','<?= $proyecto["nombre_proyecto"] ?>', '<?= $proyecto["nombre_estudiante"] ?>', '1','<?= $proyecto["nombre_proyecto"] ?>')" class="btn btn-warning">Editar</button>
                         </td>
+
                     <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
@@ -86,25 +88,35 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Asigne el tutor de la materia</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Eliga el proyecto del estudiante</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <table class="table" id="tablemodalmateriaprofe">
-                    <thead>
-                    <tr>
-                        <th scope="col">Materia</th>
-                        <th scope="col">Profesor</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tablemodalmaterias">
+                <div class="container">
+                    <form class="row g-3">
+                        <div class="col-md-6">
+                            <label for="proyecto" class="form-label">Estudiante</label>
+                            <select class="custom-select" id="estudiante1" disabled>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="materias" class="form-label">Proyecto actual</label>
+                            <select class="custom-select" disabled id="proyectoafter">
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="materias" class="form-label">Proyecto nuevo</label>
+                            <select class="custom-select" id="proyecto1">
+                                <option selected>Selecciona un proyecto</option>
+                            </select>
+                        </div>
 
-                    </tbody>
-                </table>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" onclick="sendata()">Guardar Cambios</button>
+                <button type="button" class="btn btn-success" onclick="proyectoestudiante(null,null,null,'0',null)">Guardar Cambios</button>
             </div>
         </div>
     </div>

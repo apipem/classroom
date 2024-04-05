@@ -78,7 +78,7 @@
                         </li>
                         <?php endif; ?>
                         <li class="nav-item">
-                            <a href="<?= Yii::$app->getUrlManager()->createUrl('recurso/recurso') ?>" class="nav-link">
+                            <a href="<?= Yii::$app->getUrlManager()->createUrl('contenido/index') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Recursos</p>
                             </a>

@@ -41,12 +41,10 @@ class ContenidoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ContenidoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $data = Contenido::find()->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'data' => $data,
         ]);
     }
 
