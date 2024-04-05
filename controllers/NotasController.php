@@ -54,45 +54,35 @@ class NotasController extends Controller
 
         $query = new \yii\db\Query();
 
+        $misnotas = $query
+            ->select([
+                'proyecto.nombre AS nombre_proyecto',
+                'materia.nombre AS nombre_materia',
+                'curso.nota',
+                'notas.corte1',
+                'notas.corte2',
+                'notas.corte3',
+                'curso.idcurso AS idcurso',
+                'materia.vcorte1 AS vcorte1',
+                'materia.vcorte2 AS vcorte2',
+                'materia.vcorte3 AS vcorte3',
+                'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
+            ])
+            ->from('notas')
+            ->innerJoin('curso', 'curso.notas = notas.idnotas')
+            ->innerJoin('proyecto', 'proyecto.idproyecto = notas.proyecto')
+            ->innerJoin('materia', 'materia.idmateria = curso.materia')
+            ->innerJoin('usuario', 'usuario.idusuario = curso.estudiante');
         if (\Yii::$app->user->identity->rol == "profesor"){
-            $misnotas = $query
-                ->select([
-                    'proyecto.nombre AS nombre_proyecto',
-                    'materia.nombre AS nombre_materia',
-                    'curso.idcurso AS idcurso',
-                    'curso.nota',
-                    'notas.corte1',
-                    'notas.corte2',
-                    'notas.corte3',
-                    'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
-                ])
-                ->from('notas')
-                ->innerJoin('curso', 'curso.notas = notas.idnotas')
-                ->innerJoin('proyecto', 'proyecto.idproyecto = notas.proyecto')
-                ->innerJoin('materia', 'materia.idmateria = curso.materia')
-                ->innerJoin('usuario', 'usuario.idusuario = curso.estudiante')
-                ->where("curso.profesor = ".\Yii::$app->user->identity->id)
-                ->all();
+            $misnotas = $misnotas
+                ->where("curso.profesor = ".\Yii::$app->user->identity->id);
+
         }else{
-            $misnotas = $query
-                ->select([
-                    'proyecto.nombre AS nombre_proyecto',
-                    'materia.nombre AS nombre_materia',
-                    'curso.nota',
-                    'notas.corte1',
-                    'notas.corte2',
-                    'notas.corte3',
-                    'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
-                ])
-                ->from('notas')
-                ->innerJoin('curso', 'curso.notas = notas.idnotas')
-                ->innerJoin('proyecto', 'proyecto.idproyecto = notas.proyecto')
-                ->innerJoin('materia', 'materia.idmateria = curso.materia')
-                ->innerJoin('usuario', 'usuario.idusuario = curso.estudiante')
-                ->where("curso.estudiante = ".\Yii::$app->user->identity->id)
-                ->all();
+            $misnotas = $misnotas
+                ->where("curso.estudiante = ".\Yii::$app->user->identity->id);
             }
 
+        $misnotas = $misnotas->all();
 
         return $this->render('notas', [
             'notas' => $misnotas,
@@ -142,6 +132,9 @@ class NotasController extends Controller
                     'proyecto.nombre AS nombre_proyecto',
                     'materia.nombre AS nombre_materia',
                     'curso.idcurso AS idcurso',
+                    'materia.vcorte1 AS vcorte1',
+                    'materia.vcorte2 AS vcorte2',
+                    'materia.vcorte3 AS vcorte3',
                     'curso.nota',
                     'notas.corte1',
                     'notas.corte2',

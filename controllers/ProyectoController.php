@@ -40,12 +40,10 @@ class ProyectoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ProyectoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $data = Proyecto::find()->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'data' => $data,
         ]);
     }
 
@@ -69,7 +67,7 @@ class ProyectoController extends Controller
 
         $data = $data->all();
 
-        return $this->render('proyecto', [
+        return $this->render('index', [
             'data' => $data,
         ]);
     }

@@ -38,138 +38,59 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-
-            <?php if(Yii::$app->user->identity->nombre == "admin"): ?>
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Estudiantes
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>inscritos</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>pre-matriculados</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>matriculado</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Rechazado</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Expulsados</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Egresados</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            <?php endif;?>
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
-                <li class="nav-item menu-open">
+
+                <!-- INICIO -->
+                <li class="nav-item">
                     <a href="<?= Yii::$app->getUrlManager()->createUrl('') ?>" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            INICIO
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
+                        <i class="nav-icon fas fa-home"></i>
+                        <p>INICIO</p>
                     </a>
                 </li>
-                <?php if (Yii::$app->user->identity->rol == "profesor"){?>
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+
+                <!-- Materias y Proyectos -->
+                <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+
+                <?php else: ?>
+
+                <?php endif; ?>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
                         <p>
                             Materias
-                            <i class="right fas fa-angle-left"></i>
+                            <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= Yii::$app->getUrlManager()->createUrl('materia/create') ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Crear</p>
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <a href="<?= Yii::$app->getUrlManager()->createUrl('materia/index') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Administrar</p>
+                                <p>Mis Materias</p>
                             </a>
                         </li>
-                    </ul>
-                </li>
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Proyectos
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
+                        <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
                         <li class="nav-item">
-                            <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/proyecto') ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Mis proyectos</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/index') ?>" class="nav-link">
+                            <a href="<?= Yii::$app->getUrlManager()->createUrl('materia/listado') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Listar</p>
                             </a>
                         </li>
+                        <?php endif; ?>
                         <li class="nav-item">
-                            <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/grupos') ?>" class="nav-link">
+                            <a href="<?= Yii::$app->getUrlManager()->createUrl('recurso/recurso') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>grupos</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/general') ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>inscripcion</p>
+                                <p>Recursos</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <?php } else { ?>
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-project-diagram"></i>
                         <p>
                             Proyectos
-                            <i class="right fas fa-angle-left"></i>
+                            <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -179,35 +100,33 @@
                                 <p>Mis proyectos</p>
                             </a>
                         </li>
+                        <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+                            <li class="nav-item">
+                                <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/index') ?>" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Listar</p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                         <li class="nav-item">
                             <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/grupos') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>grupos</p>
+                                <p>Grupos</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <?php } ?>
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Notas
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
+                <!-- Notas -->
+                <li class="nav-item">
+                    <a href="<?= Yii::$app->getUrlManager()->createUrl('notas/notas') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-clipboard"></i>
+                        <p>Notas</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= Yii::$app->getUrlManager()->createUrl('notas/notas') ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Consultar</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-            </ul>
 
+            </ul>
         </nav>
+
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

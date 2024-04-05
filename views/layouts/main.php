@@ -75,7 +75,19 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 <script src="<?= Yii::$app->getUrlManager()->createUrl('js/adminlte.min.js') ?>"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    /* Estilo para los elementos seleccionados en el menú */
+    a.nav-link.active {
+        !important;background-color: rgba(255,255,255,.9); /* Cambia esto al color gris deseado */
+        color: #000; /* Cambia el color del texto si es necesario */
+    }
 
+    nav-link.active {
+    !important;background-color: rgba(255,255,255,.9); /* Cambia esto al color gris deseado */
+        color: #000; /* Cambia el color del texto si es necesario */
+    }
+
+</style>
 <script>
 
     function calcularnotafinal(){
@@ -86,6 +98,16 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
     }
 
     $(document).ready(function(){
+            var currentUrl = window.location.href;
+            $(".nav-link").each(function() {
+            var linkUrl = $(this).attr("href");
+                if (currentUrl.includes(linkUrl)) {
+                    $(this).addClass("active");
+                    $(this).parents(".nav-item").addClass("menu-open");
+                }
+             });
+
+
 
         $('#corte1').change(function() {
             calcularnotafinal();

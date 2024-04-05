@@ -52,10 +52,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php if ($rol){?>
                     <th>Estudiante</th>
                 <?php }?>
-                <th>Corte1</th>
-                <th>Corte2</th>
-                <th>Corte3</th>
-                <th>Final</th>
+                <th>Corte <span style="font-weight: bold;">1</span> <span style="opacity: 0.6;">(%)</span></th>
+                <th>Corte <span style="font-weight: bold;">2</span> <span style="opacity: 0.6;">(%)</span></th>
+                <th>Corte <span style="font-weight: bold;">3</span> <span style="opacity: 0.6;">(%)</span></th>
+                <th>Final <span style="font-weight: bold;">3</span> <span style="opacity: 0.6;">(%)</span></th>
 
                 <?php if ($rol){?>
                     <th>Acciones</th>
@@ -70,10 +70,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php if ($rol){?>
                         <td><?=  $proyecto["nombre_estudiante"] ?></td>
                     <?php }?>
-                    <td><?=  $proyecto["corte1"] ?></td>
-                    <td><?=  $proyecto["corte2"] ?></td>
-                    <td><?=  $proyecto["corte3"] ?></td>
-                    <td><?=  $proyecto["nota"] ?></td>
+                    <td><?=  $proyecto["corte1"] ?> <span style="opacity: 0.6;">(<?=  $proyecto["vcorte1"] ?> %)</span> </td>
+                    <td><?=  $proyecto["corte2"] ?> <span style="opacity: 0.6;">(<?=  $proyecto["vcorte2"] ?> %)</span> </td>
+                    <td><?=  $proyecto["corte3"] ?> <span style="opacity: 0.6;">(<?=  $proyecto["vcorte3"] ?> %)</span> </td>
+                    <td><?=  $proyecto["nota"] ?> <span style="opacity: 0.6;">(100 %)</span> </td>
 
                     <?php if ($rol): ?>
                         <td>

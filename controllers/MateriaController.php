@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Materia;
 use app\models\MateriaSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,12 +39,29 @@ class MateriaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new MateriaSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $perfil = "estudiante";
+
+        if (Yii::$app->user->identity->rol == "profesor"){
+            $perfil = "profesor";
+        }
+
+        $data = Materia::find()
+        ->innerJoin('curso', 'materia.idmateria = curso.materia')
+        ->where(['curso.'.$perfil => Yii::$app->user->identity->id])
+            ->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'data' => $data,
+        ]);
+    }
+
+    public function actionListado()
+    {
+
+        $data = Materia::find()->all();
+
+        return $this->render('index', [
+            'data' => $data,
         ]);
     }
 
