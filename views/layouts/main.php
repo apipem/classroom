@@ -78,7 +78,26 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
 
 <script>
 
+    function calcularnotafinal(){
+        var vcorte1 = ($('#corte1').val() * ($('#materiacorte1').val()/100));
+        var vcorte2 = ($('#corte2').val() * ($('#materiacorte2').val()/100));
+        var vcorte3 = ($('#corte3').val() * ($('#materiacorte3').val()/100));
+        $('#final').val(vcorte1+vcorte2+vcorte3);
+    }
+
     $(document).ready(function(){
+
+        $('#corte1').change(function() {
+            calcularnotafinal();
+        });
+
+        $('#corte2').change(function() {
+            calcularnotafinal();
+        });
+
+        $('#corte3').change(function() {
+            calcularnotafinal();
+        });
 
         $('#proyectouser').change(function() {
             var valorProyecto = $(this).val();
@@ -199,6 +218,9 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
                     $("#corte1").val(json[0]["corte1"]) ;
                     $("#corte2").val(json[0]["corte2"]);
                     $("#corte3").val(json[0]["corte3"]);
+                    $("#materiacorte1").val(json[0]["vcorte1"]) ;
+                    $("#materiacorte2").val(json[0]["vcorte2"]);
+                    $("#materiacorte3").val(json[0]["vcorte3"]);
                     $("#final").val(json[0]["nota"]);
                     $("#idcurso").val(json[0]["idcurso"]);
                     $("#idnotas").val(json[0]["idnotas"]);

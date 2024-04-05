@@ -114,6 +114,9 @@ class NotasController extends Controller
                 'notas.corte3',
                 'curso.idcurso AS idcurso',
                 'notas.idnotas AS idnotas',
+                'materia.vcorte1 AS vcorte1',
+                'materia.vcorte2 AS vcorte2',
+                'materia.vcorte3 AS vcorte3',
                 'CONCAT(usuario.nombre, " ", usuario.apellido) AS nombre_estudiante'
             ])
             ->from('notas')

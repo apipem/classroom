@@ -119,14 +119,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="col-md-3">
                             <label for="materias" class="form-label">corte1</label>
                             <input type="number" class="form-control" id="corte1" placeholder="">
+                            <input type="number" class="form-control" id="materiacorte1" placeholder="">
                         </div>
                         <div class="col-md-3">
                             <label for="materias" class="form-label">corte2</label>
                             <input type="number" class="form-control" id="corte2" placeholder="">
+                            <input type="number" class="form-control" id="materiacorte2" placeholder="">
                         </div>
                         <div class="col-md-3">
                             <label for="materias" class="form-label">corte3</label>
                             <input type="number" class="form-control" id="corte3" placeholder="">
+                            <input type="number" class="form-control" id="materiacorte3" placeholder="">
                         </div>
                         <div class="col-md-3">
                             <label for="materias" class="form-label">final</label>
