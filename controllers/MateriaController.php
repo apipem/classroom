@@ -89,17 +89,35 @@ class MateriaController extends Controller
         $model = new Materia();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return 'ok';
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if (isset($_POST["id"])){
+                $materia = Materia::findOne(['idmateria' => $_POST["id"]]);
+            }else{
+                $materia = new Materia();
             }
+            $materia->nombre = $_POST["nombre"] ;
+            $materia->codigo = $_POST["codigo"] ;
+            $materia->vcorte1 = $_POST["vcorte1"] ;
+            $materia->vcorte2 = $_POST["vcorte2"] ;
+            $materia->vcorte3 = $_POST["vcorte3"] ;
+            if ($materia->save()){
+                return 'ok';
+            }else{
+                return 'error';
+            }
+
         } else {
-            $model->loadDefaultValues();
+            $materia = Materia::findOne(['idmateria' => $_GET["id"]]);
+
+            if ($materia) {
+                $materiaArray = $materia->attributes;
+                return json_encode($materiaArray);
+            } else {
+                return json_encode(['error' => 'No se encontró la materia']);
+            }
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**

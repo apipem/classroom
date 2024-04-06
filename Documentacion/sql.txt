@@ -2,3 +2,7 @@
 ALTER TABLE contenido DROP FOREIGN KEY fk_contenido_materia1;
 ALTER TABLE contenido ADD CONSTRAINT fk_contenido_materia1 FOREIGN KEY (materia) REFERENCES materia(idmateria) ON DELETE CASCADE;
 
+-- Actualizar la restricción de clave externa
+ALTER TABLE curso DROP FOREIGN KEY fk_curso_materia1;
+ALTER TABLE curso ADD CONSTRAINT fk_curso_materia1 FOREIGN KEY (materia) REFERENCES materia(idmateria) ON DELETE CASCADE;
+

@@ -1,380 +1,358 @@
 <?php
-
-/** @var yii\web\View $this */
-
-/** @var string $content */
-
 use app\assets\AppAsset;
 
+/** @var yii\web\View $this */
+/** @var string $content */
+
 AppAsset::register($this);
-?>
-<?php
+
 $session = Yii::$app->session;
-if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
-?>
-<?php $this->beginPage() ?>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Academy</title>
+if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
+    $this->beginPage();
+    ?>
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="<?= Yii::$app->getUrlManager()->createUrl('css/all.min.css') ?>">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="<?= Yii::$app->getUrlManager()->createUrl('css/adminlte.min.css') ?>">
-</head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    <?php echo $this->render("_header") ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Academy</title>
 
-    <?php echo $this->render("_sidebar-left"); ?>
-    <?php $this->beginBody() ?>
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="<?= Yii::$app->getUrlManager()->createUrl('css/all.min.css') ?>">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="<?= Yii::$app->getUrlManager()->createUrl('css/adminlte.min.css') ?>">
+        <!-- Bootstrap CSS -->
+        <!-- Importar Bootstrap 5 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="<?= Yii::$app->getUrlManager()->createUrl('css/main.css') ?>">
+    </head>
 
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
+    <body class="">
+    <?php echo $this->render("_sidebar-left") ?>
+    <div class="wrapper">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <?php echo $this->render("_header") ?>
+                </div><!-- /.container-fluid -->
+            </div><!-- /.content-header -->
 
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
+            <?php $this->beginBody(); ?>
+
+            <!-- Main content -->
+            <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <?php echo $content ?>
-                        </div>
+                    <div class="col">
+                        <?php echo $content ?>
                     </div>
-                    <!-- /.col-md-6 -->
                 </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-    <?php $this->endBody() ?>
-    <?php echo $this->render("_footer"); ?>
-</div>
-<!-- ./wrapper -->
+            </div>
 
-<!-- REQUIRED SCRIPTS -->
+            <?php $this->endBody(); ?>
+        </div><!-- /.content-wrapper -->
+    </div><!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="<?= Yii::$app->getUrlManager()->createUrl('js/jquery.min.js') ?>"></script>
-<!-- Bootstrap 4 -->
-<script src="<?= Yii::$app->getUrlManager()->createUrl('js/bootstrap.bundle.min.js') ?>"></script>
-<!-- AdminLTE App -->
-<script src="<?= Yii::$app->getUrlManager()->createUrl('js/adminlte.min.js') ?>"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<style>
-    /* Estilo para los elementos seleccionados en el menú */
-    a.nav-link.active {
-        !important;background-color: rgba(255,255,255,.9); /* Cambia esto al color gris deseado */
-        color: #000; /* Cambia el color del texto si es necesario */
-    }
+    <?= $this->render("_footer"); ?>
 
-    nav-link.active {
-    !important;background-color: rgba(255,255,255,.9); /* Cambia esto al color gris deseado */
-        color: #000; /* Cambia el color del texto si es necesario */
-    }
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="<?= Yii::$app->getUrlManager()->createUrl('js/bootstrap.bundle.min.js') ?>"></script>
+    <!-- AdminLTE App -->
+    <script src="<?= Yii::$app->getUrlManager()->createUrl('js/adminlte.min.js') ?>"></script>
+    <!-- Custom Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Importar Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    <script>
+        $(document).ready(function(){
 
-</style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script>
-    $(document).ready(function() {
-        $('form').submit(function(e) {
-            e.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+            $('#deletemateria').submit(function(e) {
+                e.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
 
-            // Envía los datos del formulario mediante AJAX
-            $.ajax({
-                type: 'POST',
-                url: '/classroom/web/materia/create', // Ruta del controlador
-                data: $(this).serialize(), // Serializa los datos del formulario
-                success: function(response) {
-                    // Si la respuesta es 'ok', muestra una alerta de éxito
-                    if (response === 'ok') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Guardado exitosamente',
-                            showConfirmButton: true
-                        }).then(function() {
-                            // Recarga la página después de hacer clic en el botón "OK"
-                            location.reload();
-                        });
-                    } else {
-                        // Si la respuesta no es 'ok', muestra una alerta de error
+                // Envía los datos del formulario mediante AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: '/classroom/web/materia/create', // Ruta del controlador
+                    data: $(this).serialize(), // Serializa los datos del formulario
+                    success: function(response) {
+                        // Si la respuesta es 'ok', muestra una alerta de éxito
+                        if (response === 'ok') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Guardado exitosamente',
+                                showConfirmButton: true
+                            }).then(function() {
+                                // Recarga la página después de hacer clic en el botón "OK"
+                                location.reload();
+                            });
+                        } else {
+                            // Si la respuesta no es 'ok', muestra una alerta de error
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error al guardar',
+                                text: 'Ha ocurrido un error al intentar guardar los datos',
+                                showConfirmButton: true
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Si hay un error en la petición AJAX, muestra una alerta de error
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error al guardar',
-                            text: 'Ha ocurrido un error al intentar guardar los datos',
+                            title: 'Error',
+                            text: 'Ha ocurrido un error en la solicitud AJAX',
                             showConfirmButton: true
                         });
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Si hay un error en la petición AJAX, muestra una alerta de error
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Ha ocurrido un error en la solicitud AJAX',
-                        showConfirmButton: true
-                    });
-                }
+                });
             });
-        });
-    });
-</script>
 
-<script>
-
-    function calcularnotafinal(){
-        var vcorte1 = ($('#corte1').val() * ($('#materiacorte1').val()/100));
-        var vcorte2 = ($('#corte2').val() * ($('#materiacorte2').val()/100));
-        var vcorte3 = ($('#corte3').val() * ($('#materiacorte3').val()/100));
-        $('#final').val(vcorte1+vcorte2+vcorte3);
-    }
-
-    $(document).ready(function(){
             var currentUrl = window.location.href;
+
             $(".nav-link").each(function() {
-            var linkUrl = $(this).attr("href");
+                var linkUrl = $(this).attr("href");
                 if (currentUrl.includes(linkUrl)) {
                     $(this).addClass("active");
                     $(this).parents(".nav-item").addClass("menu-open");
                 }
-             });
-
-
-
-        $('#corte1').change(function() {
-            calcularnotafinal();
-        });
-
-        $('#corte2').change(function() {
-            calcularnotafinal();
-        });
-
-        $('#corte3').change(function() {
-            calcularnotafinal();
-        });
-
-        $('#proyectouser').change(function() {
-            var valorProyecto = $(this).val();
-
-            if (valorProyecto !== "") {
-                $('#materiasuser').val("0");
-            }
-        });
-
-        $('#materiasuser').change(function() {
-            var valorMateria = $(this).val();
-
-            if (valorMateria !== "") {
-                $('#proyectouser').val("0");
-            }
-        });
-
-        $.ajax({
-            method: "get",
-            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listestudiantes') ?>",
-            success : function(json) {
-                JSON.parse(json).forEach(element => $("#estudiantes").append("<option value='"+element["idUsuario"]+"'> "+element["nombre"]+" "+element["apellido"]+"</option>"));
-            },
-        });
-
-        $.ajax({
-            method: "get",
-            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listprofesores') ?>",
-            success : function(json) {
-                JSON.parse(json).forEach(element => $("#profesores").append("<option value='"+element["idUsuario"]+"'> "+element["nombre"]+" "+element["apellido"]+"</option>"));
-            },
-        });
-
-        $.ajax({
-            method: "get",
-            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listmaterias') ?>",
-            success : function(json) {
-                JSON.parse(json).forEach(element => $("#materias").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
-            },
-        });
-
-        $.ajax({
-            method: "get",
-            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectos') ?>",
-            success : function(json) {
-                JSON.parse(json).forEach(element => $("#proyecto").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
-            },
-        });
-
-        $.ajax({
-            method: "get",
-            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectos') ?>",
-            success : function(json) {
-                JSON.parse(json).forEach(element => $("#proyecto1").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
-            },
-        });
-
-        $.ajax({
-            method: "get",
-            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listmateriasuser') ?>",
-            success : function(json) {
-                JSON.parse(json).forEach(element => $("#materiasuser").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
-            },
-        });
-
-        $.ajax({
-            method: "get",
-            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectosuser') ?>",
-            success : function(json) {
-                JSON.parse(json).forEach(element => $("#proyectouser").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
-            },
-        });
-
-    });
-
-    function proyectoestudiante(idestudiante,proyecto,estudiante,action,anteriorproyecto){
-
-        if (action == 0){
-            $.ajax({
-                method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/updateproyectoestudiante') ?>",
-                data: { proyecto: $("#proyecto1").val() ,
-                    estudiante: $("#estudiante1").val()  ,
-                },
-                success : function(json) {
-                    if (json == "ok"){
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Cambio de proyecto!',
-                            text: 'Registro Actualizado!',
-                        }).then((result) => {
-                            /* Read more about isConfirmed, isDenied below */
-                            if (result.isConfirmed) {
-                                window.location.reload();
-                            }
-                        })
-                    }else{
-                        Swal.fire(
-                            'Oh no!',
-                            'Algo salio mal!',
-                            'error'
-                        )
-                    }
-                },
             });
-        }
-        if (action == 1){
-            $("#estudiante1").children().remove();
-            $("#estudiante1").append("<option value='"+idestudiante+"' selected> "+estudiante+"</option>");
-            $("#proyectoafter").children().remove();
-            $("#proyectoafter").append("<option value='"+anteriorproyecto+"' selected> "+anteriorproyecto+"</option>");
-        }
-    }
-    function preupdatenotas(data,update){
-        if (update){
-            $.ajax({
-                method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/registronotas') ?>",
-                data: { proyectonotas: $("#proyectonotas").val() ,
-                    materiasnotas: $("#materiasnotas").val()  ,
-                    estudiantenotas: $("#estudiantenotas").val()  ,
-                    corte1: $("#corte1").val()  ,
-                    corte2: $("#corte2").val()  ,
-                    corte3: $("#corte3").val()  ,
-                    final: $("#final").val()  ,
-                    idnotas: $("#idnotas").val()  ,
-                    idcurso: $("#idcurso").val()  ,
-                },
-                success : function(json) {
-                    if (json == "ok"){
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'notas Actualizadas!',
-                            text: 'Registro Actualizado!',
-                        }).then((result) => {
-                            /* Read more about isConfirmed, isDenied below */
-                            if (result.isConfirmed) {
-                                window.location.reload();
-                            }
-                        })
-                    }else{
-                        Swal.fire(
-                            'Oh no!',
-                            'Algo salio mal!',
-                            'error'
-                        )
-                    }
-                },
+
+            $('#corte1').change(function() {
+                calcularnotafinal();
             });
-        }else{
-            $.ajax({
-                method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('notas/cargueupdate') ?>",
-                data: { data: data ,
-                },
-                success : function(json) {
-                    json = JSON.parse(json);
-                    $("#proyectonotas").children().remove();
-                    $("#materiasnotas").children().remove();
-                    $("#estudiantenotas").children().remove();
-                    $("#proyectonotas").append("<option value='"+json[0]["nombre_proyecto"]+"'> "+json[0]["nombre_proyecto"]+"</option>");
-                    $("#materiasnotas").append("<option value='"+json[0]["nombre_materia"]+"'> "+json[0]["nombre_materia"]+"</option>");
-                    $("#estudiantenotas").append("<option value='"+json[0]["nombre_estudiante"]+"'> "+json[0]["nombre_estudiante"]+"</option>");
-                    $("#corte1").val(json[0]["corte1"]) ;
-                    $("#corte2").val(json[0]["corte2"]);
-                    $("#corte3").val(json[0]["corte3"]);
-                    $("#materiacorte1").val(json[0]["vcorte1"]) ;
-                    $("#materiacorte2").val(json[0]["vcorte2"]);
-                    $("#materiacorte3").val(json[0]["vcorte3"]);
-                    $("#final").val(json[0]["nota"]);
-                    $("#idcurso").val(json[0]["idcurso"]);
-                    $("#idnotas").val(json[0]["idnotas"]);
-                    },
+
+            $('#corte2').change(function() {
+                calcularnotafinal();
             });
-        }
-    }
-    function enviargrupos(){
-        $.ajax({
-            method: "get",
-            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/registro') ?>",
-            data: { estudiante: $("#estudiantes").val() ,
-                profesor: $("#profesores").val()  ,
-                materia: $("#materias").val()  ,
-                proyecto: $("#proyecto").val()  ,
-            },
-            success : function(json) {
-                if (json == "ok"){
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Inscrito!',
-                        text: 'Registro completo!',
-                    }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
-                        if (result.isConfirmed) {
-                            window.location.reload();
-                        }
-                    })
-                }else{
-                    Swal.fire(
-                        'Oh no!',
-                        'Algo salio mal!',
-                        'error'
-                    )
+
+            $('#corte3').change(function() {
+                calcularnotafinal();
+            });
+
+            $('#proyectouser').change(function() {
+                var valorProyecto = $(this).val();
+
+                if (valorProyecto !== "") {
+                    $('#materiasuser').val("0");
                 }
-            },
-        });
-    }
+            });
 
+            $('#materiasuser').change(function() {
+                var valorMateria = $(this).val();
+
+                if (valorMateria !== "") {
+                    $('#proyectouser').val("0");
+                }
+            });
+
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listestudiantes') ?>",
+                success : function(json) {
+                    JSON.parse(json).forEach(element => $("#estudiantes").append("<option value='"+element["idUsuario"]+"'> "+element["nombre"]+" "+element["apellido"]+"</option>"));
+                },
+            });
+
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listprofesores') ?>",
+                success : function(json) {
+                    JSON.parse(json).forEach(element => $("#profesores").append("<option value='"+element["idUsuario"]+"'> "+element["nombre"]+" "+element["apellido"]+"</option>"));
+                },
+            });
+
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listmaterias') ?>",
+                success : function(json) {
+                    JSON.parse(json).forEach(element => $("#materias").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
+                },
+            });
+
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectos') ?>",
+                success : function(json) {
+                    JSON.parse(json).forEach(element => $("#proyecto").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
+                },
+            });
+
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectos') ?>",
+                success : function(json) {
+                    JSON.parse(json).forEach(element => $("#proyecto1").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
+                },
+            });
+
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listmateriasuser') ?>",
+                success : function(json) {
+                    JSON.parse(json).forEach(element => $("#materiasuser").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
+                },
+            });
+
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectosuser') ?>",
+                success : function(json) {
+                    JSON.parse(json).forEach(element => $("#proyectouser").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
+                },
+            });
+
+        });
+
+        function calcularnotafinal(){
+            var vcorte1 = ($('#corte1').val() * ($('#materiacorte1').val()/100));
+            var vcorte2 = ($('#corte2').val() * ($('#materiacorte2').val()/100));
+            var vcorte3 = ($('#corte3').val() * ($('#materiacorte3').val()/100));
+            $('#final').val(vcorte1+vcorte2+vcorte3);
+        }
+
+        function proyectoestudiante(idestudiante,proyecto,estudiante,action,anteriorproyecto){
+
+            if (action == 0){
+                $.ajax({
+                    method: "get",
+                    url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/updateproyectoestudiante') ?>",
+                    data: { proyecto: $("#proyecto1").val() ,
+                        estudiante: $("#estudiante1").val()  ,
+                    },
+                    success : function(json) {
+                        if (json == "ok"){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cambio de proyecto!',
+                                text: 'Registro Actualizado!',
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    window.location.reload();
+                                }
+                            })
+                        }else{
+                            Swal.fire(
+                                'Oh no!',
+                                'Algo salio mal!',
+                                'error'
+                            )
+                        }
+                    },
+                });
+            }
+            if (action == 1){
+                $("#estudiante1").children().remove();
+                $("#estudiante1").append("<option value='"+idestudiante+"' selected> "+estudiante+"</option>");
+                $("#proyectoafter").children().remove();
+                $("#proyectoafter").append("<option value='"+anteriorproyecto+"' selected> "+anteriorproyecto+"</option>");
+            }
+        }
+
+        function preupdatenotas(data,update){
+            if (update){
+                $.ajax({
+                    method: "get",
+                    url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/registronotas') ?>",
+                    data: { proyectonotas: $("#proyectonotas").val() ,
+                        materiasnotas: $("#materiasnotas").val()  ,
+                        estudiantenotas: $("#estudiantenotas").val()  ,
+                        corte1: $("#corte1").val()  ,
+                        corte2: $("#corte2").val()  ,
+                        corte3: $("#corte3").val()  ,
+                        final: $("#final").val()  ,
+                        idnotas: $("#idnotas").val()  ,
+                        idcurso: $("#idcurso").val()  ,
+                    },
+                    success : function(json) {
+                        if (json == "ok"){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'notas Actualizadas!',
+                                text: 'Registro Actualizado!',
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    window.location.reload();
+                                }
+                            })
+                        }else{
+                            Swal.fire(
+                                'Oh no!',
+                                'Algo salio mal!',
+                                'error'
+                            )
+                        }
+                    },
+                });
+            }else{
+                $.ajax({
+                    method: "get",
+                    url: "<?= Yii::$app->getUrlManager()->createUrl('notas/cargueupdate') ?>",
+                    data: { data: data ,
+                    },
+                    success : function(json) {
+                        json = JSON.parse(json);
+                        $("#proyectonotas").children().remove();
+                        $("#materiasnotas").children().remove();
+                        $("#estudiantenotas").children().remove();
+                        $("#proyectonotas").append("<option value='"+json[0]["nombre_proyecto"]+"'> "+json[0]["nombre_proyecto"]+"</option>");
+                        $("#materiasnotas").append("<option value='"+json[0]["nombre_materia"]+"'> "+json[0]["nombre_materia"]+"</option>");
+                        $("#estudiantenotas").append("<option value='"+json[0]["nombre_estudiante"]+"'> "+json[0]["nombre_estudiante"]+"</option>");
+                        $("#corte1").val(json[0]["corte1"]) ;
+                        $("#corte2").val(json[0]["corte2"]);
+                        $("#corte3").val(json[0]["corte3"]);
+                        $("#materiacorte1").val(json[0]["vcorte1"]) ;
+                        $("#materiacorte2").val(json[0]["vcorte2"]);
+                        $("#materiacorte3").val(json[0]["vcorte3"]);
+                        $("#final").val(json[0]["nota"]);
+                        $("#idcurso").val(json[0]["idcurso"]);
+                        $("#idnotas").val(json[0]["idnotas"]);
+                    },
+                });
+            }
+        }
+
+        function enviargrupos(){
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/registro') ?>",
+                data: { estudiante: $("#estudiantes").val() ,
+                    profesor: $("#profesores").val()  ,
+                    materia: $("#materias").val()  ,
+                    proyecto: $("#proyecto").val()  ,
+                },
+                success : function(json) {
+                    if (json == "ok"){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Inscrito!',
+                            text: 'Registro completo!',
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        })
+                    }else{
+                        Swal.fire(
+                            'Oh no!',
+                            'Algo salio mal!',
+                            'error'
+                        )
+                    }
+                },
+            });
+        }
 
         function materiaprofesor() {
             $("#tablemodalmaterias").children(0).remove();
@@ -407,100 +385,26 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
             }
         }
 
-    function sendata() {
+        function sendata() {
 
-        var matprof = [];
-        $('#tablemodalmateriaprofe tr').each(function(index, fila) {
-            // Obtener el valor seleccionado del select en la segunda columna
-            var valorSelect = $(fila).find('td:eq(1) select').val();
-            var valorInput = $(fila).find('.valmateria').val();
-            var parValores = [valorSelect, valorInput];
-            matprof.push(parValores);
-        });
-        $.ajax({
-            method: "get",
-            url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/materiaprofe') ?>",
-            data: {
-                estudiante: $("#estudiantes").val(),
-                matprof: matprof,
-                proyecto: $("#proyecto").val(),
-            },
-            success: function (json) {
-                if (json == "ok") {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Inscrito!',
-                        text: 'Registro completo!',
-                    }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
-                        if (result.isConfirmed) {
-                            window.location.reload();
-                        }
-                    })
-                } else {
-                    Swal.fire(
-                        'Oh no!',
-                        'Algo salio mal!',
-                        'error'
-                    )
-                }
-            },
-        });
-    }
-
-
-</script>
-</body>
-<?php $this->endPage() ?>
-<?php } else { ?>
-    <?php $this->beginPage() ?>
-    <?php $this->beginBody() ?>
-    <?php echo $this->render("index"); ?>
-    <?php $this->endBody() ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        function sedes(item, index) {
-            $("#sede").append("<option value='"+item["idSede"]+"'> "+item["nombre"]+"</option>");
-        }
-        function cursos(item, index) {
-            $("#curso").append("<option value='"+item["idCurso"]+"'> "+item["curso"]+"</option>");
-        }
-        function jornadas(item, index) {
-            $("#jornada").append("<option value='"+item["idJornada"]+"'> "+item["nombre"]+"</option>");
-        }
-        function td(item, index) {
-            $("#td").append("<option value='"+item["idTipo_Documento"]+"'> "+item["tipo"]+"</option>");
-        }
-        function sedes(item, index) {
-            $("#estudiantes").append("<option value='"+item["idSede"]+"'> "+item["nombre"]+"</option>");
-        }
-
-
-        $(document).ready(function(){
-            $.ajax({
-                method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/estudiantes') ?>",
-                success : function(json) {
-                    JSON.parse(json).forEach(element => $("#estudiantes").append("<option value='"+element["idGenero"]+"'> "+element["nombre"]+"</option>"));
-                },
+            var matprof = [];
+            $('#tablemodalmateriaprofe tr').each(function(index, fila) {
+                // Obtener el valor seleccionado del select en la segunda columna
+                var valorSelect = $(fila).find('td:eq(1) select').val();
+                var valorInput = $(fila).find('.valmateria').val();
+                var parValores = [valorSelect, valorInput];
+                matprof.push(parValores);
             });
-
-        });
-
-
-        function enviar(){
             $.ajax({
                 method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/persona') ?>",
-                data: { cc: $("#cc").val() ,
-                    name: $("#name").val()  ,
-                    last: $("#last").val()  ,
-                    user: $("#user").val()  ,
-                    email: $("#email").val()  ,
-                    password: $("#password").val()  ,
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/materiaprofe') ?>",
+                data: {
+                    estudiante: $("#estudiantes").val(),
+                    matprof: matprof,
+                    proyecto: $("#proyecto").val(),
                 },
-                success : function(json) {
-                    if (json == "ok"){
+                success: function (json) {
+                    if (json == "ok") {
                         Swal.fire({
                             icon: 'success',
                             title: 'Inscrito!',
@@ -511,7 +415,7 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
                                 window.location.reload();
                             }
                         })
-                    }else{
+                    } else {
                         Swal.fire(
                             'Oh no!',
                             'Algo salio mal!',
@@ -520,9 +424,154 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
                     }
                 },
             });
+        }
+
+        function materiasave(id,save) {
+            if (save){
+                $.ajax({
+                    method: "get",
+                    url: "<?= Yii::$app->getUrlManager()->createUrl('materia/create') ?>",
+                    data: {
+                        id: id,
+                    },
+                    success: function (json) {
+                        var data = JSON.parse(json);
+
+                        $("#materia-0").val(data.idmateria);
+                        $("#materia-1").val(data.nombre);
+                        $("#materia-2").val(data.codigo);
+                        $("#materia-3").val(data.vcorte1);
+                        $("#materia-4").val(data.vcorte2);
+                        $("#materia-5").val(data.vcorte3);
+                    },
+                });
+            }else{
+                $.ajax({
+                    method: "POST",
+                    url: "<?= Yii::$app->getUrlManager()->createUrl('materia/create') ?>",
+                    data: {
+                        id: $("#materia-0").val(),
+                        nombre: $("#materia-1").val(),
+                        codigo: $("#materia-2").val(),
+                        vcorte1: $("#materia-3").val(),
+                        vcorte2: $("#materia-4").val(),
+                        vcorte3: $("#materia-5").val(),
+                        _csrf: $("#token").val(),
+                    },
+                    success: function (json) {
+                        if (json == "ok") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Materia Actualizada!',
+                                text: 'Registro completo!',
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    window.location.reload();
+                                }
+                            })
+                        } else {
+                            Swal.fire(
+                                'Oh no!',
+                                'Algo salio mal!',
+                                'error'
+                            )
+                        }
+                    },
+                });
+            }
 
         }
 
+        function materiaguardar() {
+            $.ajax({
+                method: "POST",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('materia/create') ?>",
+                data: {
+                    nombre: $("#materia-nombre").val(),
+                    codigo: $("#materia-codigo").val(),
+                    vcorte1: $("#materia-vcorte1").val(),
+                    vcorte2: $("#materia-vcorte2").val(),
+                    vcorte3: $("#materia-vcorte3").val(),
+                    _csrf: $("#token").val(),
+                },
+                success: function (json) {
+                    if (json == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Materia Registrada!',
+                            text: 'Registro completo!',
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        })
+                    } else {
+                        Swal.fire(
+                            'Oh no!',
+                            'Algo salio mal!',
+                            'error'
+                        )
+                    }
+                },
+            });
+        }
     </script>
-    <?php $this->endPage() ?>
-<?php } ?>
+    </html>
+
+    <?php
+    $this->endPage();
+} else {
+    $this->beginPage();
+    ?>
+
+    <?php $this->beginBody(); ?>
+    <?php echo $this->render("index"); ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/estudiantes') ?>",
+                success: function(json) {
+                    JSON.parse(json).forEach(element => $("#estudiantes").append("<option value='" + element["idGenero"] + "'> " + element["nombre"] + "</option>"));
+                },
+            });
+        });
+
+        function enviar() {
+            $.ajax({
+                method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/persona') ?>",
+                data: {
+                    cc: $("#cc").val(),
+                    name: $("#name").val(),
+                    last: $("#last").val(),
+                    user: $("#user").val(),
+                    email: $("#email").val(),
+                    password: $("#password").val(),
+                },
+                success: function(json) {
+                    if (json == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Inscrito!',
+                            text: 'Registro completo!',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        })
+                    } else {
+                        Swal.fire(
+                            'Oh no!',
+                            'Algo salió mal!',
+                            'error'
+                        )
+                    }
+                },
+            });
+        }
+    </script>
+    <?php $this->endPage(); } ?>

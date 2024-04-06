@@ -6,7 +6,7 @@
     <meta name="keywords" content="InternationalHouse, about us, Other Languages, OUR LANGUAGES, ESSENTIALS, CRASH COURSE 1, level 1, CRASH COURSE 2, level 2, PRIVATE, Ready to subscribe?, Empire State Building, Online language learning support">
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <title>Colegio</title>
+    <title>ClassRoom</title>
     <link rel="stylesheet" href="css/nicepage.css" media="screen">
     <link rel="stylesheet" href="css/Casa.css" media="screen">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -26,25 +26,45 @@
     <meta property="og:type" content="website">
     <link rel="canonical" href="/">
 </head>
-<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-    </a>
+<header class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container">
+        <a href="/" class="navbar-brand d-flex align-items-center me-auto">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
 
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
-    </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="col-md-3 text-end">
-        <a class="btn btn-outline-primary me-2" href="/classroom/web/login">iniciar sesion</a>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">FAQs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About</a>
+                </li>
+            </ul>
+        </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Registrar</button>
+        <div class="d-flex align-items-center">
+            <a class="btn btn-outline-secondary me-2" href="/classroom/web/login">Iniciar Sesión</a>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Registrar</button>
+        </div>
     </div>
 </header>
+
+
+
 <body data-home-page="https://website1502757.nicepage.io/Casa.html?version=d8809972-41a2-4c9e-a898-a46c6903281c" data-home-page-title="Casa" class="u-body u-xl-mode">
 <section class="u-clearfix u-image u-shading u-section-1" id="sec-e15b">
     <div class="u-clearfix u-sheet u-sheet-1">
@@ -333,12 +353,13 @@
     </div>
 </section>
 
+<!-- Botón flotante -->
 <div class="float-end">
-    Float end on all viewport sizes
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Registrar</button>
-</div><br><br><br>
+</div>
 
-<div class="modal fade show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -346,32 +367,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/academy/web/persona/psico" method="post">
-
+                <form id="registrationForm" action="/academy/web/persona/psico" method="post">
                     <div class="row">
                         <div class="col-4 mb-3">
                             <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Documento:</label>
+                                <label for="cc" class="col-form-label">Documento:</label>
                                 <input type="number" name="cc" id="cc" class="form-control">
                             </div>
                         </div>
                         <div class="col-4 mb-3">
                             <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Nombres:</label>
-                                <input type="text" class="form-control" id="name">
+                                <label for="name" class="col-form-label">Nombres:</label>
+                                <input type="text" class="form-control" id="name" name="name">
                             </div>
                         </div>
                         <div class="col-4 mb-3">
                             <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Apellidos:</label>
-                                <input type="text" class="form-control" id="last">
+                                <label for="last" class="col-form-label">Apellidos:</label>
+                                <input type="text" class="form-control" id="last" name="last">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4 mb-3">
                             <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Usuario:</label>
+                                <label for="user" class="col-form-label">Usuario:</label>
                                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="user" id="user">
                                     <option selected>Selecciona</option>
                                     <option value="estudiante">Estudiante</option>
@@ -381,27 +401,26 @@
                         </div>
                         <div class="col-4 mb-3">
                             <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Correo:</label>
-                                <input type="email" class="form-control" id="email">
+                                <label for="email" class="col-form-label">Correo:</label>
+                                <input type="email" class="form-control" id="email" name="email">
                             </div>
                         </div>
                         <div class="col-4 mb-3">
                             <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Contrasena:</label>
-                                <input type="password" class="form-control" id="password">
+                                <label for="password" class="col-form-label">Contraseña:</label>
+                                <input type="password" class="form-control" id="password" name="password">
                             </div>
                         </div>
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" onclick="enviar()" class="btn btn-primary">Registrar</button>
+                <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="enviar()" class="btn btn-secondary">Registrar</button>
             </div>
             </form>
         </div>
     </div>
 </div>
-
 <section class="u-backlink u-clearfix u-grey-80">
     <a class="u-link" href="https://nicepage.com/html-templates" target="_blank">
         <span>HTML Template</span>

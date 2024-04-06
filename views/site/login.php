@@ -1,45 +1,57 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var yii\bootstrap4\ActiveForm $form */
-/** @var app\models\LoginForm $model */
-
 use yii\bootstrap4\ActiveForm;
-use yii\bootstrap4\Html;
+use yii\helpers\Html;
 
-$this->title = 'Login';
+$this->title = 'Iniciar Sesión';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="site-login d-flex justify-content-center align-items-center vh-100">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title text-center"><?= Html::encode($this->title) ?></h1>
 
-    <p>Por favor ingrese su numero de documento y su contraseña:</p>
+                <p class="card-text text-center">Por favor, ingrese su número de documento y su contraseña:</p>
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'template' => "{label}\n{input}\n{error}",
-            'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-            'inputOptions' => ['class' => 'col-lg-3 form-control'],
-            'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-        ],
-    ]); ?>
+                <?php $form = ActiveForm::begin([
+                    'id' => 'login-form',
+                    'layout' => 'horizontal',
+                    'fieldConfig' => [
+                        'template' => "{label}\n<div class='col-lg-6'>{input}</div>\n<div class='col-lg-6'>{error}</div>",
+                        'labelOptions' => ['class' => 'col-lg-6 col-form-label'],
+                        'inputOptions' => ['class' => 'form-control', 'style' => 'border-color: #6c757d;'], // Color del contorno (gris)
+                        'errorOptions' => ['class' => 'invalid-feedback'],
+                    ],
+                ]); ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Número de documento']) ?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Contraseña']) ?>
 
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
 
-        <div class="form-group">
-            <div class="offset-lg-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <div class="form-group row">
+                    <div class="offset-lg-6 col-lg-6">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <?= Html::a('Volver', ['site/index'], ['class' => 'btn btn-outline-secondary mt-3']) ?>
+                            <?= Html::submitButton('Iniciar Sesión', ['class' => 'btn btn-primary', 'name' => 'login-button', 'style' => 'background-color: #6c757d; border-color: #6c757d;']) ?>
+                        </div>
+                    </div>
+                </div>
+
+                <?php ActiveForm::end(); ?>
+
             </div>
         </div>
-
-    <?php ActiveForm::end(); ?>
-
+    </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    // Capturar el mensaje de "No autorizado" y mostrar una alerta
+    $(document).ready(function() {
+        if ($('h2:contains("No autorizado")').length > 0) {
+            alert("No autorizado");
+        }
+    });
+</script>

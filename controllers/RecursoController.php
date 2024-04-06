@@ -43,7 +43,7 @@ class RecursoController extends Controller
                 [
                     'actions' => ['listestudiantes','listprofesores','listprofesoreselect','listmaterias','listproyectos','matricula','registronotas','materiaprofe'
                         ,'materiaid','listmateriasuser','listproyectosuser','deletecurso',
-                        'updateproyectoestudiante','deletemateria',],
+                        'updateproyectoestudiante','deletemateria','updatemateria'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -206,6 +206,10 @@ class RecursoController extends Controller
 
         }
         return $return;
+    }
+
+    public function actionUpdatemateria(){
+
     }
     public function actionMateriaprofe(){
 

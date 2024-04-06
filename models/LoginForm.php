@@ -88,7 +88,7 @@ class LoginForm extends Model
                     return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
                 }
             }
-            echo "<h2>No autorizado</h2>";
+            echo "<h2 hidden>No autorizado</h2>";
         }
 
         return false;
