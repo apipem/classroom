@@ -43,7 +43,7 @@ class RecursoController extends Controller
                 [
                     'actions' => ['listestudiantes','listprofesores','listprofesoreselect','listmaterias','listproyectos','matricula','registronotas','materiaprofe'
                         ,'materiaid','listmateriasuser','listproyectosuser','deletecurso',
-                        'updateproyectoestudiante',],
+                        'updateproyectoestudiante','deletemateria',],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -173,6 +173,19 @@ class RecursoController extends Controller
             return "No se pudo eliminar el curso";
         }
     }
+    public function actionDeletemateria(){
+
+        $id = $_GET["idmateria"];
+
+        $delete = Materia::deleteAll(['idmateria' => $id]);
+
+        if ($delete > 0) {
+            return $this->redirect('../materia/listado');
+        } else {
+            return "No se pudo eliminar el curso";
+        }
+    }
+
     public function actionUpdateproyectoestudiante(){
 
         $proyecto = $_GET["proyecto"];

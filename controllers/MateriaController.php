@@ -8,6 +8,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * MateriaController implements the CRUD actions for Materia model.
@@ -89,7 +90,8 @@ class MateriaController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idmateria' => $model->idmateria]);
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return 'ok';
             }
         } else {
             $model->loadDefaultValues();

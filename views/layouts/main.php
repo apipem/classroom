@@ -88,6 +88,53 @@ if ($session->isActive and isset(Yii::$app->user->identity->nombre)) {
     }
 
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    $(document).ready(function() {
+        $('form').submit(function(e) {
+            e.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+            // Envía los datos del formulario mediante AJAX
+            $.ajax({
+                type: 'POST',
+                url: '/classroom/web/materia/create', // Ruta del controlador
+                data: $(this).serialize(), // Serializa los datos del formulario
+                success: function(response) {
+                    // Si la respuesta es 'ok', muestra una alerta de éxito
+                    if (response === 'ok') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Guardado exitosamente',
+                            showConfirmButton: true
+                        }).then(function() {
+                            // Recarga la página después de hacer clic en el botón "OK"
+                            location.reload();
+                        });
+                    } else {
+                        // Si la respuesta no es 'ok', muestra una alerta de error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error al guardar',
+                            text: 'Ha ocurrido un error al intentar guardar los datos',
+                            showConfirmButton: true
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Si hay un error en la petición AJAX, muestra una alerta de error
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ha ocurrido un error en la solicitud AJAX',
+                        showConfirmButton: true
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 <script>
 
     function calcularnotafinal(){
