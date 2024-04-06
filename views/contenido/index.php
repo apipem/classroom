@@ -13,66 +13,62 @@ use yii\grid\GridView;
 $this->title = 'Contenidos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="container">
-    <h2 class="mt-5 mb-3">Buscar Material de apoyo</h2>
-    <form class="row g-3" action="<?= Yii::$app->getUrlManager()->createUrl('notas/filtro') ?>" method="get">
+
+<div class="container mt-5">
+    <h2 class="mb-4">Buscar Material de Apoyo</h2>
+    <form class="row g-3" action="<?= Url::to(['notas/filtro']) ?>" method="get">
         <div class="col-md-6">
             <label for="proyecto" class="form-label">Proyecto</label>
-            <select class="custom-select" id="proyectouser" name="proyecto">
+            <select class="form-select" id="proyectouser" name="proyecto">
                 <option value="0" selected>Selecciona un proyecto</option>
             </select>
         </div>
         <div class="col-md-6">
             <label for="materias" class="form-label">Materia</label>
-            <select  value="0" class="custom-select" id="materiasuser" name="materia">
+            <select class="form-select" id="materiasuser" name="materia">
                 <option value="0" selected>Selecciona una materia</option>
             </select>
         </div>
         <div class="col-12">
-        </div>
-        <div class="col-12">
-            <div class="text-right mb-3">
+            <div class="text-end mt-3">
                 <button type="submit" class="btn btn-success">Filtrar</button>
             </div>
         </div>
     </form>
 </div>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-9">
-            <h1>Material de apoyo</h1>
+        <div class="col-md-9">
+            <h1>Material de Apoyo</h1>
         </div>
-        <div class="col-3">
-            <div class="container">
-                <?php if (Yii::$app->user->identity->rol == "profesor"){?>
-                    <?= Html::a('Agregar Material de apoyo', ['create'], ['class' => 'btn btn-success']) ?>
-                <?php }?>
-            </div>
+        <div class="col-md-3">
+            <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+                <?= Html::a('Agregar Material de Apoyo', ['create'], ['class' => 'btn btn-success']) ?>
+            <?php endif; ?>
         </div>
     </div>
 
-    <div class="row">
-        <table class="table table-striped table-bordered">
+    <div class="row mt-4">
+        <table class="table table-striped">
             <thead>
             <tr>
-                <th>contenido</th>
-                <th>descripcion</th>
-                <th>materia</th>
-                <th>proyecto</th>
-                <?php if (Yii::$app->user->identity->rol == "profesor"){?>
-                    <th>acciones</th>
-                <?php }?>
+                <th>Contenido</th>
+                <th>Descripción</th>
+                <th>Materia</th>
+                <th>Proyecto</th>
+                <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+                    <th>Acciones</th>
+                <?php endif; ?>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($data as $obj): ?>
                 <tr>
-                    <td><?=  $obj["contenido"] ?></td>
-                    <td><?=  $obj["descripcion"] ?></td>
-                    <td><?=  $obj["materia"] ?></td>
-                    <td><?=  $obj["proyecto"] ?></td>
-
+                    <td><?= $obj["contenido"] ?></td>
+                    <td><?= $obj["descripcion"] ?></td>
+                    <td><?= $obj["materia"] ?></td>
+                    <td><?= $obj["proyecto"] ?></td>
                     <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
                         <td>
                             <button class="btn btn-warning">Modificar</button>
@@ -84,9 +80,4 @@ $this->params['breadcrumbs'][] = $this->title;
             </tbody>
         </table>
     </div>
-
-    <div class="row">
-
-    </div>
 </div>
-
