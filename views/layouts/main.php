@@ -533,7 +533,7 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
                     descripcion: $("#descripcion").val(),
                     finicio: $("#finicio").val(),
                     ffin: $("#ffin").val(),
-                    _csrf: $("#_csrf").val(),
+                    _csrf: $("#token").val(),
                 },
                 success: function (json) {
                     if (json == "ok") {

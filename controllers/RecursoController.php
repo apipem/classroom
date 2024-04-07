@@ -187,6 +187,7 @@ class RecursoController extends Controller
             return "No se pudo eliminar el curso";
         }
     }
+
     public function actionDeletemateria(){
 
         $id = $_GET["idmateria"];
