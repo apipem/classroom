@@ -208,7 +208,7 @@ class RecursoController extends Controller
         $delete = Proyecto::deleteAll(['idproyecto' => $id]);
 
         if ($delete > 0) {
-            return $this->redirect('../proyecto/proyecto');
+            return $this->redirect('../proyecto/index');
         } else {
             return "No se pudo eliminar el curso";
         }
