@@ -21,32 +21,34 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <!-- Formulario de búsqueda -->
-    <div class="row mt-3">
-        <div class="col-xs-12">
-            <form action="" method="get" class="row g-3">
-                <input type="hidden" name="_csrf" id="token" value="<?= Yii::$app->request->getCsrfToken() ?>">
-                <div class="col-md-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="ProyectoSearch[nombre]" placeholder="Nombre">
-                </div>
-                <div class="col-md-3">
-                    <label for="descripcion" class="form-label">Descripción</label>
-                    <input type="text" class="form-control" id="descripcion" name="ProyectoSearch[descripcion]" placeholder="Descripción">
-                </div>
-                <div class="col-md-3">
-                    <label for="finicio" class="form-label">Fecha de inicio</label>
-                    <input type="date" class="form-control" id="finicio" name="ProyectoSearch[fechaIncio]" placeholder="Fecha de inicio">
-                </div>
-                <div class="col-md-3">
-                    <label for="ffin" class="form-label">Fecha de fin</label>
-                    <input type="date" class="form-control" id="ffin" name="ProyectoSearch[fechaFin]" placeholder="Fecha de fin">
-                </div>
-                <div class="col-md-12 text-end">
-                    <button type="button" class="btn btn-success" onclick="proyectosave()">Crear proyecto</button>
-                </div>
-            </form>
+    <?php if (Yii::$app->user->identity->rol == "profesor") : ?>
+        <div class="row mt-3">
+            <div class="col-xs-12">
+                <form action="" method="get" class="row g-3">
+                    <input type="hidden" name="_csrf" id="token" value="<?= Yii::$app->request->getCsrfToken() ?>">
+                    <div class="col-md-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="ProyectoSearch[nombre]" placeholder="Nombre">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="descripcion" name="ProyectoSearch[descripcion]" placeholder="Descripción">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="finicio" class="form-label">Fecha de inicio</label>
+                        <input type="date" class="form-control" id="finicio" name="ProyectoSearch[fechaIncio]" placeholder="Fecha de inicio">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="ffin" class="form-label">Fecha de fin</label>
+                        <input type="date" class="form-control" id="ffin" name="ProyectoSearch[fechaFin]" placeholder="Fecha de fin">
+                    </div>
+                    <div class="col-md-12 text-end">
+                        <button type="button" class="btn btn-success" onclick="proyectosave()">Crear proyecto</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 
     <!-- Tabla de proyectos -->
     <div class="row mt-3">

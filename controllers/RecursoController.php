@@ -216,8 +216,8 @@ class RecursoController extends Controller
 
     public function actionUpdateproyectoestudiante(){
 
-        $proyecto = $_GET["proyecto"];
-        $estudiante = $_GET["estudiante"];
+        $proyecto = $_POST["idproyecto"];
+        $estudiante = $_POST["idestudiante"];
 
         $return = "ok";
         $cursos = Curso::find()->where(['estudiante' => $estudiante])->all();

@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <!-- Formulario de búsqueda -->
+    <?php if (Yii::$app->user->identity->rol == "profesor") : ?>
     <div class="row mt-3">
         <div class="col-xs-12">
             <form action="" method="get" class="row g-3">
@@ -47,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </form>
         </div>
     </div>
-
+    <?php endif; ?>
     <!-- Tabla de proyectos -->
     <div class="row mt-3">
         <div class="col-xs-12">
@@ -60,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th>Fecha de fin</th>
                     <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
                         <th>Acciones</th>
-                    <?php endif; ?>
+
                 </tr>
                 </thead>
                 <tbody>

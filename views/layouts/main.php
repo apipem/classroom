@@ -225,42 +225,61 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
             $('#final').val(vcorte1+vcorte2+vcorte3);
         }
 
-        function proyectoestudiante(idestudiante,proyecto,estudiante,action,anteriorproyecto){
+        function proyectoestudiante(idestudiante, proyecto, estudiante, action, anteriorproyecto) {
+            $(".estudiante").children().remove();
+            $(".proyecto").children().remove();
+            $(".estudiante").append("<option value='" + $("#estudiantes option:selected").text() + "' selected> " + $("#estudiantes option:selected").text() + "</option>");
+            $(".proyecto").append("<option value='" + $("#proyecto option:selected").text() + "' selected> " + $("#proyecto option:selected").text() + "</option>");
 
-            if (action == 0){
+            console.log(idestudiante);
+            console.log(proyecto);
+            console.log(estudiante);
+            console.log(action);
+            console.log(anteriorproyecto);
+
+            if (action == 0) {
                 $.ajax({
-                    method: "get",
+                    method: "POST",
                     url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/updateproyectoestudiante') ?>",
-                    data: { proyecto: $("#proyecto1").val() ,
-                        estudiante: $("#estudiante1").val()  ,
+                    data: {
+                        idproyecto: $("#proyecto1").val(),
+                        idestudiante: $("#idestudianteante").val(),
+                        _csrf: $("#_csrf").val(),
                     },
-                    success : function(json) {
-                        if (json == "ok"){
+                    success: function(json) {
+                        if (json == "ok") {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Cambio de proyecto!',
                                 text: 'Registro Actualizado!',
                             }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
                                 if (result.isConfirmed) {
                                     window.location.reload();
                                 }
-                            })
-                        }else{
+                            });
+                        } else {
                             Swal.fire(
                                 'Oh no!',
-                                'Algo salio mal!',
+                                'Algo salió mal!',
                                 'error'
-                            )
+                            );
                         }
                     },
+                    error: function() {
+                        Swal.fire(
+                            'Error!',
+                            'Hubo un problema al realizar la solicitud.',
+                            'error'
+                        );
+                    }
                 });
             }
-            if (action == 1){
-                $("#estudiante1").children().remove();
-                $("#estudiante1").append("<option value='"+idestudiante+"' selected> "+estudiante+"</option>");
-                $("#proyectoafter").children().remove();
-                $("#proyectoafter").append("<option value='"+anteriorproyecto+"' selected> "+anteriorproyecto+"</option>");
+            if (action == 1) {
+                $(".estudiante").children().remove();
+                $(".estudiante").append("<option value='" + idestudiante + "' selected> " + estudiante + "</option>");
+                $(".proyecto").children().remove();
+                $(".proyecto").append("<option value='" + anteriorproyecto + "' selected> " + anteriorproyecto + "</option>");
+                $("#idestudianteante").val(idestudiante);
             }
         }
 
@@ -364,6 +383,11 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
             $("#tablemodalmaterias").children(0).remove();
             var materias = $("#materias").val();
 
+            $(".estudiante").children().remove();
+            $(".proyecto").children().remove();
+            $(".estudiante").append("<option value='"+$("#estudiantes option:selected").text()+"' selected> "+$("#estudiantes option:selected").text()+"</option>");
+            $(".proyecto").append("<option value='"+$("#proyecto option:selected").text()+"' selected> "+$("#proyecto option:selected").text()+"</option>");
+
             if (Array.isArray(materias)) {
                 materias.forEach(function (materia, indice) {
                     if (materia != "Selecciona las Materias") {
@@ -394,7 +418,7 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
         function sendata() {
 
             var matprof = [];
-            $('#tablemodalmateriaprofe tr').each(function(index, fila) {
+            $('#tablemodalmaterias tr').each(function(index, fila) {
                 // Obtener el valor seleccionado del select en la segunda columna
                 var valorSelect = $(fila).find('td:eq(1) select').val();
                 var valorInput = $(fila).find('.valmateria').val();
