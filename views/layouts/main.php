@@ -14,6 +14,12 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
     <!DOCTYPE html>
     <html lang="en">
     <head>
+        <!-- Otros elementos head -->
+        <?php
+        $randomIconUrl = 'https://favicongrabber.com/api/grab/' . urlencode('https://example.com'); // Cambia 'https://example.com' por la URL del sitio del que deseas obtener el favicon
+        ?>
+        <link rel="icon" type="image/x-icon" href="<?= $randomIconUrl ?>" />
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Academy</title>
@@ -516,6 +522,96 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
                     }
                 },
             });
+        }
+
+        function proyectosave() {
+            $.ajax({
+                method: "POST",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/proyecto') ?>",
+                data: {
+                    nombre: $("#nombre").val(),
+                    descripcion: $("#descripcion").val(),
+                    finicio: $("#finicio").val(),
+                    ffin: $("#ffin").val(),
+                    _csrf: $("#_csrf").val(),
+                },
+                success: function (json) {
+                    if (json == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Proyecto Registrado!',
+                            text: 'Registro completo!',
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        })
+                    } else {
+                        Swal.fire(
+                            'Oh no!',
+                            'Algo salio mal!',
+                            'error'
+                        )
+                    }
+                },
+            });
+        }
+
+        function proyectoguardar(id,save) {
+            if (save){
+                $.ajax({
+                    method: "get",
+                    url: "<?= Yii::$app->getUrlManager()->createUrl('proyecto/edicion') ?>",
+                    data: {
+                        id: id,
+                    },
+                    success: function (json) {
+                        var data = JSON.parse(json);
+
+                        $("#idproyecto1").val(data.idProyecto);
+                        $("#nombre1").val(data.nombre);
+                        $("#descripcion1").val(data.descripcion);
+                        $("#finicio1").val(data.fechaIncio);
+                        $("#ffin1").val(data.fechaFin);
+                    },
+                });
+
+            }else{
+                $.ajax({
+                    method: "POST",
+                    url: "<?= Yii::$app->getUrlManager()->createUrl('proyecto/edicion') ?>",
+                    data: {
+                        idproyecto1: $("#idproyecto1").val(),
+                        nombre: $("#nombre1").val(),
+                        descripcion: $("#descripcion1").val(),
+                        finicio: $("#finicio1").val(),
+                        ffin: $("#ffin1").val(),
+                        _csrf: $("#token").val(),
+                    },
+                    success: function (json) {
+                        if (json == "ok") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Proyecto Actualizado!',
+                                text: 'Registro completo!',
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    window.location.reload();
+                                }
+                            })
+                        } else {
+                            Swal.fire(
+                                'Oh no!',
+                                'Algo salio mal!',
+                                'error'
+                            )
+                        }
+                    },
+                });
+            }
+
         }
     </script>
     </html>

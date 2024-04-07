@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Notas;
 use app\models\Proyecto;
 use app\models\ProyectoSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -156,6 +157,26 @@ class ProyectoController extends Controller
             'model' => $this->findModel($idProyecto),
         ]);
     }
+
+    public function actionEdicion(){
+        if (isset($_GET["id"])){
+            $id = isset($_GET["id"]) ? $_GET["id"] : null;
+            return Json::encode(Proyecto::findOne($id));
+        }else{
+            $proyecto = Proyecto::findOne($_POST["idproyecto1"]);
+            $proyecto->nombre = $_POST["nombre"];
+            $proyecto->descripcion = $_POST["descripcion"];
+            $proyecto->fechaIncio = $_POST["finicio"];
+            $proyecto->fechaFin = $_POST["ffin"];
+
+            if ($proyecto->save()){
+                return "ok";
+            }else{
+                return "error";
+            }
+        }
+    }
+
 
     /**
      * Creates a new Proyecto model.

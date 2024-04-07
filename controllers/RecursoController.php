@@ -43,7 +43,7 @@ class RecursoController extends Controller
                 [
                     'actions' => ['listestudiantes','listprofesores','listprofesoreselect','listmaterias','listproyectos','matricula','registronotas','materiaprofe'
                         ,'materiaid','listmateriasuser','listproyectosuser','deletecurso',
-                        'updateproyectoestudiante','deletemateria','updatemateria'],
+                        'updateproyectoestudiante','deletemateria','updatemateria','proyecto', 'deleteproyecto'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -55,6 +55,22 @@ class RecursoController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionProyecto()
+    {
+        $proyecto = new Proyecto();
+        $proyecto->nombre =$_POST["nombre"] ;
+        $proyecto->descripcion =$_POST["descripcion"] ;
+        $proyecto->fechaIncio =$_POST["finicio"] ;
+        $proyecto->fechaFin =$_POST["ffin"] ;
+
+        if ($proyecto->save()) {
+            return "ok";
+        } else {
+            return "Error";
+        }
+
     }
 
     public function actionPersona()
@@ -108,8 +124,6 @@ class RecursoController extends Controller
         $html = $html ."</select>";
         return $html;
     }
-
-
 
     public function actionListmaterias(){return Json::encode(Materia::find()->all());}
 
@@ -181,6 +195,19 @@ class RecursoController extends Controller
 
         if ($delete > 0) {
             return $this->redirect('../materia/listado');
+        } else {
+            return "No se pudo eliminar el curso";
+        }
+    }
+
+    public function actionDeleteproyecto(){
+
+        $id = $_GET["idproyecto"];
+
+        $delete = Proyecto::deleteAll(['idproyecto' => $id]);
+
+        if ($delete > 0) {
+            return $this->redirect('../proyecto/proyecto');
         } else {
             return "No se pudo eliminar el curso";
         }
