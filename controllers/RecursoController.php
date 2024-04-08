@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Contenido;
 use app\models\Curso;
 use app\models\CursoSearch;
 use app\models\Estudiante;
@@ -43,7 +44,8 @@ class RecursoController extends Controller
                 [
                     'actions' => ['listestudiantes','listprofesores','listprofesoreselect','listmaterias','listproyectos','matricula','registronotas','materiaprofe'
                         ,'materiaid','listmateriasuser','listproyectosuser','deletecurso',
-                        'updateproyectoestudiante','deletemateria','updatemateria','proyecto', 'deleteproyecto'],
+                        'updateproyectoestudiante','deletemateria','updatemateria','proyecto', 'deleteproyecto',
+                        'deleterecurso'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -211,6 +213,19 @@ class RecursoController extends Controller
             return $this->redirect('../proyecto/index');
         } else {
             return "No se pudo eliminar el curso";
+        }
+    }
+
+    public function actionDeleterecurso(){
+
+        $id = $_GET["idcontenidodel"];
+
+        $delete = Contenido::deleteAll(['idcontenido' => $id]);
+
+        if ($delete > 0) {
+            return $this->redirect('../contenido/index');
+        } else {
+            return "No se pudo eliminar el Recurso";
         }
     }
 

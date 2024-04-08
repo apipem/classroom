@@ -186,6 +186,14 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
 
             $.ajax({
                 method: "get",
+                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listmaterias') ?>",
+                success : function(json) {
+                    JSON.parse(json).forEach(element => $("#materias1").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
+                },
+            });
+
+            $.ajax({
+                method: "get",
                 url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectos') ?>",
                 success : function(json) {
                     JSON.parse(json).forEach(element => $("#proyecto").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
@@ -214,6 +222,60 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
                 success : function(json) {
                     JSON.parse(json).forEach(element => $("#proyectouser").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
                 },
+            });
+
+            // Evento click para el botón "Modificar"
+            $('.btn-editar').click(function() {
+                var contenido = $(this).closest('tr').find('td:nth-child(1)').text().trim().replace('Descargar', '').trim();
+                var descripcion = $(this).closest('tr').find('td:nth-child(2)').text().trim();
+                var materia = $(this).closest('tr').find('td:nth-child(3) input').val().trim();
+                var proyecto = $(this).closest('tr').find('td:nth-child(4) input').val().trim();
+                // Obtener el idcontenido del botón "Modificar"
+                var idcontenido = $(this).closest('td').find('input[type="hidden"]').val().trim();
+
+
+                $('#idcontenido1').val(idcontenido);
+                $('#contenido').val(contenido);
+                $('#descripcion').val(descripcion);
+                $('#materias1').val(materia);
+                $('#proyecto1').val(proyecto);
+                $('#modalEditar').modal('show');
+            });
+
+            $('#formularioEditar').submit(function(event) {
+                event.preventDefault(); // Evitar que el formulario se envíe de forma predeterminada
+
+                $.ajax({
+                    method: "post",
+                    url: "<?= Yii::$app->getUrlManager()->createUrl('contenido/update') ?>",
+                    data: {
+                        idcontenido: $("#idcontenido1").val(),
+                        descripcion: $("#descripcion").val(),
+                        materia: $("#materias1").val(),
+                        proyecto: $("#proyecto1").val(),
+                        _csrf: $("#_csrf").val(),
+                    },
+                    success: function (json) {
+                        if (json == "ok") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Recurso Modificado!',
+                                text: 'Registro Actualizado!',
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    window.location.reload();
+                                }
+                            })
+                        } else {
+                            Swal.fire(
+                                'Oh no!',
+                                'Algo salio mal!',
+                                'error'
+                            )
+                        }
+                    },
+                });
             });
 
         });

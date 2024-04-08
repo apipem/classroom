@@ -87,10 +87,7 @@ class ContenidoController extends Controller
                         }
                     }
                 }
-
-              //  if ( $model->save()){
-               //     return $this->redirect(['view', 'idcontenido' => $model->idcontenido]);
-                //}
+                return $this->redirect(['index']);
             }
         } else {
             $model->loadDefaultValues();
@@ -108,17 +105,18 @@ class ContenidoController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idcontenido)
+    public function actionUpdate()
     {
-        $model = $this->findModel($idcontenido);
+        $contenido = Contenido::findOne(['idcontenido'=>$_POST["idcontenido"]]);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idcontenido' => $model->idcontenido]);
+        $contenido->descripcion = $_POST["descripcion"];
+        $contenido->materia = $_POST["materia"];
+        $contenido->proyecto = $_POST["proyecto"];
+        if ($contenido->save()){
+            return "ok";
+        }else{
+            return "Error";
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
