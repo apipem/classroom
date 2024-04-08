@@ -41,7 +41,26 @@ class ContenidoController extends Controller
      */
     public function actionIndex()
     {
-        $data = Contenido::find()->all();
+        $proyectoId = "0";
+        $materiaId = "0";
+
+        $data = Contenido::find();
+        if (isset($_GET["proyecto"]) ){
+            $proyectoId = $_GET["proyecto"];
+        }
+        if (isset($_GET["materia"]) ){
+            $materiaId = $_GET["materia"];
+        }
+
+
+        if ($proyectoId !== "0") {
+            $data->andWhere(['proyecto' => $proyectoId]);
+        }
+
+        if ($materiaId !== "0") {
+            $data->andWhere(['materia' => $materiaId]);
+        }
+        $data = $data->all();
 
         return $this->render('index', [
             'data' => $data,

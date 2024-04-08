@@ -16,16 +16,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="container mt-5">
     <h2 class="mb-4">Buscar Material de Apoyo</h2>
-    <form class="row g-3" action="<?= Url::to(['notas/filtro']) ?>" method="get">
+    <form class="row g-3" action="<?= Yii::$app->getUrlManager()->createUrl('contenido/index') ?>" method="get">
         <div class="col-md-6">
             <label for="proyecto" class="form-label">Proyecto</label>
-            <select class="form-select" id="proyecto" name="proyecto">
+            <select class="form-select" id="proyectouser" name="proyecto">
                 <option value="0" selected>Selecciona un proyecto</option>
             </select>
         </div>
         <div class="col-md-6">
             <label for="materias" class="form-label">Materia</label>
-            <select class="form-select" id="materias" name="materia">
+            <select class="form-select" id="materiasuser" name="materia">
                 <option value="0" selected>Selecciona una materia</option>
             </select>
         </div>
