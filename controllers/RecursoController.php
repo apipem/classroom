@@ -16,12 +16,12 @@ use app\models\Proyecto;
 use app\models\Sede;
 use app\models\TipoDocumento;
 use app\models\Usuario;
+use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\controllers\Yii;
 
 /**
  * CursoController implements the CRUD actions for Curso model.
@@ -131,16 +131,37 @@ class RecursoController extends Controller
 
     public function actionListproyectos(){return Json::encode(Proyecto::find()->all());}
 
-    public function actionListmateriasuser(){return Json::encode(Materia::find()
-        ->innerJoin('curso', 'curso.materia = materia.idmateria')
-        ->where("curso.profesor = ".\Yii::$app->user->identity->id)
-        ->all());}
+    public function actionListmateriasuser(){
+        if (Yii::$app->user->identity->rol == "profesor"){
+            return Json::encode(Materia::find()
+                ->innerJoin('curso', 'curso.materia = materia.idmateria')
+                ->where("curso.profesor = ".\Yii::$app->user->identity->id)
+                ->all());
+        }else{
+            return Json::encode(Materia::find()
+                ->innerJoin('curso', 'curso.materia = materia.idmateria')
+                ->where("curso.estudiante = ".\Yii::$app->user->identity->id)
+                ->all());
+        }
 
-    public function actionListproyectosuser(){return Json::encode(Proyecto::find()
-        ->innerJoin('notas', 'notas.proyecto = proyecto.idproyecto')
-        ->innerJoin('curso', 'curso.notas = notas.idnotas')
-        ->where("curso.profesor = ".\Yii::$app->user->identity->id)
-        ->all());}
+    }
+
+    public function actionListproyectosuser(){
+        if (Yii::$app->user->identity->rol == "profesor"){
+            return Json::encode(Proyecto::find()
+                ->innerJoin('notas', 'notas.proyecto = proyecto.idproyecto')
+                ->innerJoin('curso', 'curso.notas = notas.idnotas')
+                ->where("curso.profesor = ".\Yii::$app->user->identity->id)
+                ->all());
+        }else{
+            return Json::encode(Proyecto::find()
+                ->innerJoin('notas', 'notas.proyecto = proyecto.idproyecto')
+                ->innerJoin('curso', 'curso.notas = notas.idnotas')
+                ->where("curso.estudiante = ".\Yii::$app->user->identity->id)
+                ->all());
+        }
+
+    }
 
     public function actionRegistronotas(){
 
