@@ -53,12 +53,23 @@ class ContenidoController extends Controller
         }
 
 
+        $data =  $data->innerJoin('materia', 'materia.idmateria = contenido.materia')
+        ->innerJoin('curso', 'curso.materia = materia.idmateria')
+        ;
+
+
         if ($proyectoId !== "0") {
             $data->andWhere(['proyecto' => $proyectoId]);
         }
 
         if ($materiaId !== "0") {
             $data->andWhere(['materia' => $materiaId]);
+        }
+
+        if (Yii::$app->user->identity->rol == "profesor"){
+            $data = $data->andWhere("curso.profesor = ".\Yii::$app->user->identity->id);
+        }else{
+            $data = $data->andWhere("curso.estudiante = ".\Yii::$app->user->identity->id);
         }
         $data = $data->all();
 
