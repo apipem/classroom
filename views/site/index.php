@@ -15,6 +15,9 @@
             <a href="<?= Yii::$app->getUrlManager()->createUrl('materia/index') ?>" class="btn btn-secondary btn-lg btn-block">Materias</a>
         </div>
         <div class="col-3">
+            <a href="<?= Yii::$app->getUrlManager()->createUrl('contenido/index') ?>" class="btn btn-secondary btn-lg btn-block">Recursos</a>
+        </div>
+        <div class="col-3">
             <a href="<?= Yii::$app->getUrlManager()->createUrl('proyecto/proyecto') ?>" class="btn btn-secondary btn-lg btn-block">Proyectos</a>
         </div>
         <div class="col-3">
