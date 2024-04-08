@@ -57,7 +57,7 @@
         </div>
 
         <div class="d-flex align-items-center">
-            <a class="btn btn-outline-secondary me-2" href="/classroom/web/login">Iniciar Sesión</a>
+            <a class="btn btn-outline-secondary me-2" href="/login">Iniciar Sesión</a>
             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Registrar</button>
         </div>
     </div>
