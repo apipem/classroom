@@ -24,14 +24,14 @@ use yii\widgets\ActiveForm;
 
     <div class="col-md-6">
         <label for="materias" class="form-label">Materia</label>
-        <select class="custom-select" name="Contenido[materia]" id="materias">
-            <option selected>Selecciona un proyecto</option>
+        <select class="custom-select " name="Contenido[materia]" id="materiasusercreate">
+            <option selected>Selecciona un Materia</option>
         </select>
     </div>
 
     <div class="col-md-6">
         <label for="materias" class="form-label">Proyecto</label>
-        <select class="custom-select" name="Contenido[proyecto]" id="proyecto">
+        <select class="custom-select " name="Contenido[proyecto]" id="proyectousercreate">
             <option selected>Selecciona un proyecto</option>
         </select>
     </div>

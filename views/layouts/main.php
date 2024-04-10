@@ -213,6 +213,7 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
                 url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listmateriasuser') ?>",
                 success : function(json) {
                     JSON.parse(json).forEach(element => $("#materiasuser").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
+                    JSON.parse(json).forEach(element => $("#materiasusercreate").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
                 },
             });
 
@@ -221,6 +222,7 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
                 url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/listproyectosuser') ?>",
                 success : function(json) {
                     JSON.parse(json).forEach(element => $("#proyectouser").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
+                    JSON.parse(json).forEach(element => $("#proyectousercreate").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
                 },
             });
 

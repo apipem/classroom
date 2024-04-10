@@ -54,16 +54,17 @@ class ContenidoController extends Controller
 
 
         $data =  $data->innerJoin('materia', 'materia.idmateria = contenido.materia')
-        ->innerJoin('curso', 'curso.materia = materia.idmateria')
+        ->innerJoin('proyecto', 'proyecto.idproyecto = contenido.materia')
+            ->innerJoin('curso', 'curso.materia = materia.idmateria')
         ;
 
 
         if ($proyectoId !== "0") {
-            $data->andWhere(['proyecto' => $proyectoId]);
+            $data->andWhere(['contenido.proyecto' => $proyectoId]);
         }
 
         if ($materiaId !== "0") {
-            $data->andWhere(['materia' => $materiaId]);
+            $data->andWhere(['contenido.materia' => $materiaId]);
         }
 
         if (Yii::$app->user->identity->rol == "profesor"){
@@ -126,6 +127,7 @@ class ContenidoController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+
     }
 
     /**
