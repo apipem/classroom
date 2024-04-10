@@ -44,7 +44,6 @@ class ContenidoController extends Controller
         $proyectoId = "0";
         $materiaId = "0";
 
-        $data = Contenido::find();
         if (isset($_GET["proyecto"]) ){
             $proyectoId = $_GET["proyecto"];
         }
@@ -53,30 +52,34 @@ class ContenidoController extends Controller
         }
 
 
-        $data =  $data->innerJoin('materia', 'materia.idmateria = contenido.materia')
-        ->innerJoin('proyecto', 'proyecto.idproyecto = contenido.materia')
-            ->innerJoin('curso', 'curso.materia = materia.idmateria')
-        ;
+        $data = Contenido::find()->select("contenido.*")
+            ->innerJoin('materia', 'materia.idmateria = contenido.materia')
+            ->innerJoin('proyecto', 'proyecto.idProyecto = contenido.proyecto')
+            ->innerJoin('curso', 'curso.materia = materia.idmateria');
 
 
         if ($proyectoId !== "0") {
             $data->andWhere(['contenido.proyecto' => $proyectoId]);
         }
 
+
         if ($materiaId !== "0") {
             $data->andWhere(['contenido.materia' => $materiaId]);
         }
+
+        /**
 
         if (Yii::$app->user->identity->rol == "profesor"){
             $data = $data->andWhere("curso.profesor = ".\Yii::$app->user->identity->id);
         }else{
             $data = $data->andWhere("curso.estudiante = ".\Yii::$app->user->identity->id);
         }
+         *
+         * */
         $data = $data->all();
 
-        return $this->render('index', [
-            'data' => $data,
-        ]);
+
+        return $this->render('index', ['data' => $data,]);
     }
 
     /**
@@ -114,6 +117,7 @@ class ContenidoController extends Controller
                             $contenido->descripcion = $model->descripcion;
                             $contenido->materia = $model->materia;
                             $contenido->proyecto = $model->proyecto;
+                            $contenido->user = Yii::$app->user->identity->id;
                             $contenido->save();
                         }
                     }

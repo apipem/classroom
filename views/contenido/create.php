@@ -11,7 +11,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contenido-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+        <h1>Agregar Material de apoyo</h1>
+    <?php else: ?>
+        <h1>Subir evidencias</h1>
+    <?php endif; ?>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -12,9 +12,11 @@ use Yii;
  * @property string $descripcion
  * @property int $materia
  * @property int $proyecto
+ * @property int $user
  *
  * @property Materia $materia0
  * @property Proyecto $proyecto0
+ * @property Usuario $user0
  */
 class Contenido extends \yii\db\ActiveRecord
 {
@@ -29,16 +31,17 @@ class Contenido extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-        public function rules()
-        {
-            return [
-                [['descripcion', 'materia', 'proyecto'], 'required'],
-                [['contenido', 'descripcion'], 'string'],
-                [['materia', 'proyecto'], 'integer'],
-                [['proyecto'], 'exist', 'skipOnError' => true, 'targetClass' => Proyecto::class, 'targetAttribute' => ['proyecto' => 'idProyecto']],
-                [['materia'], 'exist', 'skipOnError' => true, 'targetClass' => Materia::class, 'targetAttribute' => ['materia' => 'idmateria']],
-            ];
-        }
+    public function rules()
+    {
+        return [
+            [['contenido', 'descripcion', 'materia', 'proyecto', 'user'], 'required'],
+            [['contenido', 'descripcion'], 'string'],
+            [['materia', 'proyecto', 'user'], 'integer'],
+            [['proyecto'], 'exist', 'skipOnError' => true, 'targetClass' => Proyecto::class, 'targetAttribute' => ['proyecto' => 'idProyecto']],
+            [['materia'], 'exist', 'skipOnError' => true, 'targetClass' => Materia::class, 'targetAttribute' => ['materia' => 'idmateria']],
+            [['user'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::class, 'targetAttribute' => ['user' => 'idUsuario']],
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -51,6 +54,7 @@ class Contenido extends \yii\db\ActiveRecord
             'descripcion' => 'Descripcion',
             'materia' => 'Materia',
             'proyecto' => 'Proyecto',
+            'user' => 'User',
         ];
     }
 
@@ -72,5 +76,15 @@ class Contenido extends \yii\db\ActiveRecord
     public function getProyecto0()
     {
         return $this->hasOne(Proyecto::class, ['idProyecto' => 'proyecto']);
+    }
+
+    /**
+     * Gets query for [[User0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser0()
+    {
+        return $this->hasOne(Usuario::class, ['idUsuario' => 'user']);
     }
 }

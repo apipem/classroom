@@ -38,16 +38,25 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-9">
-            <h1>Material de Apoyo</h1>
-        </div>
-        <div class="col-md-3">
-            <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+    <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+        <div class="row">
+            <div class="col-md-9">
+                <h1>Material de Apoyo</h1>
+            </div>
+            <div class="col-md-3">
                 <?= Html::a('Agregar Material de Apoyo', ['create'], ['class' => 'btn btn-success']) ?>
-            <?php endif; ?>
+            </div>
         </div>
-    </div>
+    <?php else: ?>
+        <div class="row">
+            <div class="col-md-10">
+                <h1>Material de Apoyo</h1>
+            </div>
+            <div class="text-end col-md-2">
+                <?= Html::a('Subir entregables', ['create'], ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
+    <?php endif; ?>
 
     <div class="row mt-4">
         <table class="table table-striped">
@@ -57,9 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <th>Descripción</th>
                 <th>Materia</th>
                 <th>Proyecto</th>
-                <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
-                    <th>Acciones</th>
-                <?php endif; ?>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -72,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td><?= $obj["descripcion"] ?></td>
                     <td><?= $obj->materia0->nombre ?><input type="hidden" value="<?= $obj["materia"]?>"></td>
                     <td><?= $obj->proyecto0->nombre ?><input type="hidden" value="<?= $obj["proyecto"]?>"></td>
-                    <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+                    <?php if (Yii::$app->user->identity->id ==  $obj["user"]): ?>
                         <td>
                             <form action="<?= Yii::$app->getUrlManager()->createUrl('recurso/deleterecurso') ?>" method="get">
                                 <input type="hidden" value="<?= $obj["idcontenido"]?>">
@@ -82,6 +89,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <input type="hidden" name="idcontenidodel" value="<?= $obj["idcontenido"] ?>">
                             </form>
                         </td>
+                    <?php else: ?>
+                        <td></td>
                     <?php endif; ?>
                 </tr>
             <?php endforeach; ?>

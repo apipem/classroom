@@ -76,6 +76,23 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+
+                        <?php if (Yii::$app->user->identity->rol == "profesor"): ?>
+                            <li class="nav-item">
+                                <a href="<?= Yii::$app->getUrlManager()->createUrl('contenido/create') ?>" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Agreagar Material</p>
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a href="<?= Yii::$app->getUrlManager()->createUrl('contenido/create') ?>" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Subir evidencias</p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
                         <li class="nav-item">
                             <a href="<?= Yii::$app->getUrlManager()->createUrl('contenido/index') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
