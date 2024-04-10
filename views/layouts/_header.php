@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form action="/classroom/web/logout" method="get">
+                    <form action="<?= Yii::$app->getUrlManager()->createUrl('logout') ?>" method="get">
                         <button class="btn btn-logout" type="submit">Cerrar sesión</button>
                     </form>
                 </li>
