@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 07-04-2024 a las 20:22:37
+-- Tiempo de generación: 08-04-2024 a las 05:36:39
 -- Versión del servidor: 5.7.33
 -- Versión de PHP: 7.4.19
 
@@ -16,12 +16,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `clasroom`
---
-CREATE DATABASE IF NOT EXISTS `clasroom` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `clasroom`;
 
 -- --------------------------------------------------------
 
@@ -119,6 +113,15 @@ CREATE TABLE `contenido` (
 --
 
 TRUNCATE TABLE `contenido`;
+--
+-- Volcado de datos para la tabla `contenido`
+--
+
+INSERT INTO `contenido` (`idcontenido`, `contenido`, `descripcion`, `materia`, `proyecto`) VALUES
+(1, 'recurso/pr.html', '1', 17, 19),
+(3, 'recurso/1-b.jpg', '1', 22, 19),
+(4, 'recurso/2-b.jpg', '2', 21, 11);
+
 -- --------------------------------------------------------
 
 --
@@ -146,9 +149,13 @@ TRUNCATE TABLE `curso`;
 --
 
 INSERT INTO `curso` (`idcurso`, `estudiante`, `materia`, `profesor`, `nota`, `notificacion`, `notas`) VALUES
-(6, 29, 17, 20, 3, NULL, 6),
-(7, 29, 20, 20, 0, NULL, 7),
-(8, 29, 21, 20, 3, NULL, 8);
+(11, 29, 17, 20, 0, NULL, 11),
+(13, 29, 21, 24, 0, NULL, 13),
+(14, 29, 22, 24, 0, NULL, 14),
+(15, 23, 20, 20, 0, NULL, 15),
+(16, 23, 21, 24, 0, NULL, 16),
+(17, 25, 20, 20, 0, NULL, 17),
+(18, 25, 21, 24, 0, NULL, 18);
 
 -- --------------------------------------------------------
 
@@ -206,16 +213,14 @@ TRUNCATE TABLE `notas`;
 --
 
 INSERT INTO `notas` (`idnotas`, `corte1`, `corte2`, `corte3`, `proyecto`) VALUES
-(1, 0, 0, 0, 7),
-(2, 0, 0, 0, 7),
-(3, 0, 0, 0, 7),
-(4, 0, 0, 0, 7),
-(5, 0, 0, 0, 7),
-(6, 3, 3, 3, 6),
-(7, 0, 0, 0, 6),
-(8, 3, 3, 3, 6),
-(9, 4, 5, 0, 6),
-(10, 0, 0, 0, 6);
+(11, 0, 0, 0, 19),
+(12, 4, 4, 3, 19),
+(13, 0, 0, 0, 19),
+(14, 0, 0, 0, 19),
+(15, 0, 0, 0, 19),
+(16, 0, 0, 0, 19),
+(17, 0, 0, 0, 17),
+(18, 0, 0, 0, 17);
 
 -- --------------------------------------------------------
 
@@ -242,11 +247,8 @@ TRUNCATE TABLE `proyecto`;
 --
 
 INSERT INTO `proyecto` (`idProyecto`, `nombre`, `descripcion`, `fechaIncio`, `fechaFin`) VALUES
-(6, 'ClassRoom', 'Proyecto interno', '2024-05-25', '2024-05-28'),
-(7, 'Proyecto2', 'Descripcion2', '2024-03-05', '2024-05-29'),
 (8, 'Proyecto3', 'Descripcion Proyecto3', '2024-03-05', '2024-03-05'),
 (11, 'Sennova', 'Proyecto con convenio', '2024-02-02', '2024-02-20'),
-(14, 'sssssssssssssssss', 'ssssssssss', '2024-04-10', '2024-04-30'),
 (16, 'p1', 'p1', '2024-04-17', '2024-04-18'),
 (17, 'p2', 'p2', '2024-04-08', '2024-04-09'),
 (18, 'p3', 'p3', '2024-04-02', '2024-04-03'),
@@ -287,9 +289,9 @@ INSERT INTO `usuario` (`idUsuario`, `cc`, `nombre`, `apellido`, `correo`, `contr
 (23, 4, 'James', 'Gomez', 'jg@', '$2y$10$waK2McV.wV99XJ53QA5gru.EFN53lreUL/YfrSsKDDJ6xnBVeWPia', 'estudiante', 1),
 (24, 5, 'Leila', 'Graciela', 'lg@', '$2y$13$e4E/kPwmSEGpwNuauSjw.uiG79tWEpLI0lSxmE49mkH7/OWZ3xymm', 'profesor', 1),
 (25, 6, 'Camila', 'Vargas', 'cm@', '$2y$10$waK2McV.wV99XJ53QA5gru.EFN53lreUL/YfrSsKDDJ6xnBVeWPia', 'estudiante', 1),
-(26, 1007358160, 'j', 'r', 'jruiz18', '$2y$13$Y4IPNUXjxsTfnqE94uz9oOIoycUMlkH.vuPL3SsDd3dFMOGxwMs/.', 'estudiante', 1),
 (28, 11, 'once', 'once apellido', '11', '$2y$13$EbQVukEuyCDBZXWBRWdsteaq/JRStBx5DXR.KIkEnMHA.0WtwO07G', 'estudiante', 1),
-(29, 20, 'Darwen', 'Zenmed', '20', '$2y$13$ErojvfLjNykZZpRAIkoo4eYfVUdYHxxOgdwG9wy.TtfD4cbRBEjwy', 'estudiante', 1);
+(29, 20, 'Darwen', 'Zenmed', '20', '$2y$13$ErojvfLjNykZZpRAIkoo4eYfVUdYHxxOgdwG9wy.TtfD4cbRBEjwy', 'estudiante', 1),
+(30, 1052415816, 'a', 'v', '2', '$2y$13$S8XjAg6CIq10mbXP9gL3jun1gXD/NPar1GDAr1qvAZmZyKnmLQ60G', 'profesor', 1);
 
 --
 -- Índices para tablas volcadas
@@ -374,25 +376,25 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `contenido`
 --
 ALTER TABLE `contenido`
-  MODIFY `idcontenido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idcontenido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `idcurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idcurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `idmateria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idmateria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `notas`
 --
 ALTER TABLE `notas`
-  MODIFY `idnotas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idnotas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `proyecto`
@@ -404,7 +406,7 @@ ALTER TABLE `proyecto`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Restricciones para tablas volcadas
@@ -422,7 +424,7 @@ ALTER TABLE `contenido`
 --
 ALTER TABLE `curso`
   ADD CONSTRAINT `fk_curso_materia1` FOREIGN KEY (`materia`) REFERENCES `materia` (`idmateria`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_curso_notas1` FOREIGN KEY (`notas`) REFERENCES `notas` (`idnotas`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_curso_notas1` FOREIGN KEY (`notas`) REFERENCES `notas` (`idnotas`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_curso_usuario1` FOREIGN KEY (`estudiante`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_curso_usuario2` FOREIGN KEY (`profesor`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
@@ -430,7 +432,7 @@ ALTER TABLE `curso`
 -- Filtros para la tabla `notas`
 --
 ALTER TABLE `notas`
-  ADD CONSTRAINT `fk_notas_Proyecto1` FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_notas_Proyecto1` FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`idProyecto`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
