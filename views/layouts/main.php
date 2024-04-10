@@ -214,6 +214,7 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
                 success : function(json) {
                     JSON.parse(json).forEach(element => $("#materiasuser").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
                     JSON.parse(json).forEach(element => $("#materiasusercreate").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
+                    JSON.parse(json).forEach(element => $(".materiasuserupdate").append("<option value='"+element["idmateria"]+"'> "+element["nombre"]+" "+element["codigo"]+"</option>"));
                 },
             });
 
@@ -223,15 +224,16 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
                 success : function(json) {
                     JSON.parse(json).forEach(element => $("#proyectouser").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
                     JSON.parse(json).forEach(element => $("#proyectousercreate").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
+                    JSON.parse(json).forEach(element => $(".proyectouserupdate").append("<option value='"+element["idProyecto"]+"'> "+element["nombre"]+" "+element["descripcion"]+"</option>"));
                 },
             });
 
             // Evento click para el botón "Modificar"
             $('.btn-editar').click(function() {
                 var contenido = $(this).closest('tr').find('td:nth-child(1)').text().trim().replace('Descargar', '').trim();
-                var descripcion = $(this).closest('tr').find('td:nth-child(2)').text().trim();
+                var descripcion = $(this).closest('tr').find('td:nth-child(5)').text().trim();
                 var materia = $(this).closest('tr').find('td:nth-child(3) input').val().trim();
-                var proyecto = $(this).closest('tr').find('td:nth-child(4) input').val().trim();
+                var proyecto = $(this).closest('tr').find('td:nth-child(2) input').val().trim();
                 // Obtener el idcontenido del botón "Modificar"
                 var idcontenido = $(this).closest('td').find('input[type="hidden"]').val().trim();
 
@@ -253,8 +255,8 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
                     data: {
                         idcontenido: $("#idcontenido1").val(),
                         descripcion: $("#descripcion").val(),
-                        materia: $("#materias1").val(),
-                        proyecto: $("#proyecto1").val(),
+                        materia: $(".materiasuserupdate").val(),
+                        proyecto: $(".proyectouserupdate").val(),
                         _csrf: $("#_csrf").val(),
                     },
                     success: function (json) {

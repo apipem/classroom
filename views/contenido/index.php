@@ -63,9 +63,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <thead>
             <tr>
                 <th>Contenido</th>
-                <th>Descripción</th>
-                <th>Materia</th>
                 <th>Proyecto</th>
+                <th>Materia</th>
+                <th>Propietario</th>
+                <th>Descripción</th>
                 <th>Acciones</th>
             </tr>
             </thead>
@@ -73,12 +74,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php foreach ($data as $obj): ?>
                 <tr>
                     <td>
-                        <a href="<?= Yii::$app->getUrlManager()->createUrl($obj["contenido"]) ?>" class="btn btn-secondary" download>Descargar</a>
+                        <a href="<?= Yii::$app->getUrlManager()->createUrl($obj["contenido"]) ?>" class="btn text-end btn-secondary" download>Descargar</a>
                         <?= explode('/', $obj["contenido"])[1] ?>
                     </td>
-                    <td><?= $obj["descripcion"] ?></td>
-                    <td><?= $obj->materia0->nombre ?><input type="hidden" value="<?= $obj["materia"]?>"></td>
                     <td><?= $obj->proyecto0->nombre ?><input type="hidden" value="<?= $obj["proyecto"]?>"></td>
+                    <td><?= $obj->materia0->nombre ?><input type="hidden" value="<?= $obj["materia"]?>"></td>
+                    <td><?= $obj->user0->nombre.' '.$obj->user0->apellido.'<br> <span style="opacity: 0.4;">('.$obj->user0->rol.')</span> ' ?></td>
+                    <td><?= $obj["descripcion"] ?></td>
                     <?php if (Yii::$app->user->identity->id ==  $obj["user"]): ?>
                         <td>
                             <form action="<?= Yii::$app->getUrlManager()->createUrl('recurso/deleterecurso') ?>" method="get">
@@ -121,12 +123,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="mb-3">
                             <label for="materia" class="form-label">Materia</label>
-                            <select class="form-select" id="materias1" name="materia">
+                            <select class="form-select materiasuserupdate" id="" name="materia">
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="proyecto" class="form-label">Proyecto</label>
-                            <select class="form-select" id="proyecto1" name="proyecto">
+                            <select class="form-select proyectouserupdate" id="" name="proyecto">
                             </select>
                         </div>
                 </div>
