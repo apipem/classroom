@@ -241,8 +241,8 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
                 $('#idcontenido1').val(idcontenido);
                 $('#contenido').val(contenido);
                 $('#descripcion').val(descripcion);
-                $('#materias1').val(materia);
-                $('#proyecto1').val(proyecto);
+                $('.materiasuserupdate').val(materia);
+                $('.proyectouserupdate').val(proyecto);
                 $('#modalEditar').modal('show');
             });
 

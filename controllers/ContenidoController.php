@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\Contenido;
 use app\models\ContenidoSearch;
+use app\models\Curso;
+use app\models\Proyecto;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -55,7 +57,8 @@ class ContenidoController extends Controller
         $data = Contenido::find()->select("contenido.*")
             ->innerJoin('materia', 'materia.idmateria = contenido.materia')
             ->innerJoin('proyecto', 'proyecto.idProyecto = contenido.proyecto')
-            ->innerJoin('curso', 'curso.materia = materia.idmateria');
+            ->innerJoin('curso', 'curso.materia = materia.idmateria')
+            ->innerJoin('notas', 'curso.notas = notas.idnotas');
 
 
         if ($proyectoId !== "0") {
@@ -67,17 +70,16 @@ class ContenidoController extends Controller
             $data->andWhere(['contenido.materia' => $materiaId]);
         }
 
-        /**
 
         if (Yii::$app->user->identity->rol == "profesor"){
-            $data = $data->andWhere("curso.profesor = ".\Yii::$app->user->identity->id);
+             $data->andWhere("curso.profesor = ".\Yii::$app->user->identity->id);
         }else{
-            $data = $data->andWhere("curso.estudiante = ".\Yii::$app->user->identity->id);
-        }
-         *
-         * */
-        $data = $data->all();
+            $idquery = Curso::findOne(['estudiante'=>Yii::$app->user->id]);
 
+             $data->andWhere("proyecto.idproyecto = ".$idquery->notas0->proyecto);
+        }
+
+        $data = $data->all();
 
         return $this->render('index', ['data' => $data,]);
     }
