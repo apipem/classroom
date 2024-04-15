@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?= Yii::$app->getUrlManager()->createUrl('') ?>" class="brand-link">
+    <a href="<?= Yii::$app->getUrlManager()->createUrl('') ?>" class="brand-link" style="text-decoration: none;">
         <img src="<?= Yii::$app->getUrlManager()->createUrl('img/AdminLTELogo.png') ?>" alt="ACADEMY Logo" class="brand-image elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light ms-2">ClassRoom</span>
+        <span class="brand-text font-weight-light ms-2">Proyecto integrador</span>
     </a>
 
     <!-- Sidebar -->

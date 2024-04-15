@@ -22,7 +22,7 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Academy</title>
+        <title>Proyecto integrador</title>
 
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -714,50 +714,4 @@ if ($session->isActive && isset(Yii::$app->user->identity->nombre)) {
 
     <?php $this->beginBody(); ?>
     <?php echo $this->render("index"); ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $.ajax({
-                method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/estudiantes') ?>",
-                success: function(json) {
-                    JSON.parse(json).forEach(element => $("#estudiantes").append("<option value='" + element["idGenero"] + "'> " + element["nombre"] + "</option>"));
-                },
-            });
-        });
-
-        function enviar() {
-            $.ajax({
-                method: "get",
-                url: "<?= Yii::$app->getUrlManager()->createUrl('recurso/persona') ?>",
-                data: {
-                    cc: $("#cc").val(),
-                    name: $("#name").val(),
-                    last: $("#last").val(),
-                    user: $("#user").val(),
-                    email: $("#email").val(),
-                    password: $("#password").val(),
-                },
-                success: function(json) {
-                    if (json == "ok") {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Inscrito!',
-                            text: 'Registro completo!',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.reload();
-                            }
-                        })
-                    } else {
-                        Swal.fire(
-                            'Oh no!',
-                            'Algo salió mal!',
-                            'error'
-                        )
-                    }
-                },
-            });
-        }
-    </script>
     <?php $this->endPage(); } ?>

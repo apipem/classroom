@@ -4,7 +4,7 @@
         <div class="row">
             <!-- To the right -->
             <div class="col-md12 text-md-end">
-                <p> Copyright &copy; 2024 ApipeMLab@ - Todos los derechos reservados</p>
+                <p> Copyright &copy; 2024 Proyecto integrador@ - Todos los derechos reservados</p>
             </div>
             <!-- Default to the left -->
         </div>
