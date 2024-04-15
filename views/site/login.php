@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
-                <h1 class="card-title text-center"><?= Html::encode($this->title) ?></h1>
+                <h1 class="card-title text-center">Proyecto Integrador</h1>
 
                 <p class="card-text text-center">Por favor, ingrese su número de documento y su contraseña:</p>
 

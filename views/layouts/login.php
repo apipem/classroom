@@ -42,7 +42,7 @@ AppAsset::register($this);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-image: url('https://picsum.photos/1500/800?blur=1');
+            background-image: url('https://aplicativos.udi.edu.co/investigaciones/img/invest2.jpg');
         }
     </style>
 </head>
